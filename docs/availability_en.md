@@ -1,6 +1,8 @@
-# Regional availability review (2026-10-02)
+# Mainland China and Hong Kong availability review (2026-10-02)
 
 This review prioritizes official regional documentation from service providers and separates confirmed unavailability from region-sensitive cases with conflicting evidence. Availability can depend on the account, payment profile, IP egress, and specific product; the absence of a product in one cloud region does not by itself mean that users in Hong Kong cannot access it.
+
+This document covers both generated rule sets: the mainland China set, which addresses provider restrictions and clear mainland network blocking, and the Hong Kong set, which selectively proxies services that do not support Hong Kong egress. The two sections are intentionally separate because a service can be unavailable in mainland China while remaining available in Hong Kong, or vice versa.
 
 ## Mainland China rules included by default
 

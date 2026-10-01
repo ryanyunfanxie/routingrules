@@ -1,4 +1,4 @@
-# Regional selective service routing rules / 区域选择性服务路由规则
+# routingrules
 
 This repository provides two selective routing rule sets: one for Hong Kong and one for mainland China. Both use DIRECT by default and proxy only services that are unavailable, network-blocked, or subject to clear regional restrictions in the target region.
 
@@ -64,6 +64,6 @@ v2rayN JSON 格式依据 [v2rayN 自定义路由规则说明](https://github.com
 
 ## Research scope and limitations / 研究范围与限制
 
-See [`docs/availability_en.md`](docs/availability_en.md) for the English evidence and service-by-service notes. The Hong Kong set primarily uses official service availability documentation; the mainland set also considers GreatFire measurements of mainland network blocking. Regional policies and network conditions can change, so the manifests should be reviewed periodically.
+See [`docs/availability_en.md`](docs/availability_en.md) for the English evidence and service-by-service notes for both mainland China and Hong Kong. The Hong Kong set primarily uses official service availability documentation; the mainland set also considers GreatFire measurements of mainland network blocking. Regional policies and network conditions can change, so the manifests should be reviewed periodically.
 
-详细证据和逐项说明请见 [`docs/availability_cn.md`](docs/availability_cn.md)。香港版主要依据服务商官方可用地区文档；大陆版同时参考 GreatFire 对大陆网络阻断情况的测量。服务商地区政策和网络状况会变化，因此应定期复核配置文件。
+大陆和香港的详细证据及逐项说明请见 [`docs/availability_cn.md`](docs/availability_cn.md)。香港版主要依据服务商官方可用地区文档；大陆版同时参考 GreatFire 对大陆网络阻断情况的测量。服务商地区政策和网络状况会变化，因此应定期复核配置文件。
