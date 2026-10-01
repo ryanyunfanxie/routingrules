@@ -1,14 +1,10 @@
-# Regional selective service routing rules
-
-# 区域选择性服务路由规则
+# Regional selective service routing rules / 区域选择性服务路由规则
 
 This repository provides two selective routing rule sets: one for Hong Kong and one for mainland China. Both use DIRECT by default and proxy only services that are unavailable, network-blocked, or subject to clear regional restrictions in the target region.
 
 本仓库提供两套选择性路由规则：香港版和中国大陆版。两套规则都默认直连，只代理在目标地区不可用、被网络阻断或存在明确地区限制的服务。
 
-## Included service groups
-
-## 纳入的服务组
+## Included service groups / 纳入的服务组
 
 The Hong Kong rule set includes OpenAI / ChatGPT / OpenAI API, Anthropic / Claude / Claude API, Google AI Studio / Gemini API, Google Antigravity / Cloud Code endpoints, and TikTok / ByteDance delivery services.
 
@@ -26,9 +22,7 @@ The rule files contain no proxy nodes, passwords, subscription tokens, or token-
 
 规则文件不包含代理节点、密码、订阅 token 或 token 加密逻辑。任何拿到 URL 的人都可以读取公开规则，但本仓库不会提供代理节点或认证信息。
 
-## Generate files
-
-## 生成文件
+## Generate files / 生成文件
 
 Run the following command from the repository root:
 
@@ -59,13 +53,15 @@ Configure your proxy node or outbound first, then import the matching rule file.
 
 请先在客户端配置代理节点或出站，然后导入对应的规则文件。规则本身不能单独建立代理连接。
 
-## GitHub Pages subscription URLs
-
-## GitHub Pages 订阅 URL
+## GitHub Pages subscription URLs / GitHub Pages 订阅 URL
 
 The GitHub Actions workflow rebuilds and publishes `public/` whenever the `main` branch is updated. After enabling Settings → Pages → Source: **GitHub Actions**, use these public URLs:
 
 启用 Settings → Pages → Source: **GitHub Actions** 后，GitHub Actions 会在 `main` 分支更新时重新构建并发布 `public/`，公开 URL 如下：
+
+If `actions/deploy-pages` returns HTTP 404, the build artifact is usually valid but GitHub Pages is not enabled for the repository, or its source is not set to **GitHub Actions**. Enable it at [Repository Settings → Pages](https://github.com/ryanyunfanxie/routingrules/settings/pages), then rerun the workflow. The Node `punycode` deprecation warning is unrelated to the deployment failure.
+
+如果 `actions/deploy-pages` 返回 HTTP 404，通常说明构建产物没有问题，但仓库尚未启用 GitHub Pages，或 Pages 来源没有设置为 **GitHub Actions**。请在[仓库 Settings → Pages](https://github.com/ryanyunfanxie/routingrules/settings/pages)中启用后重新运行 workflow。Node 的 `punycode` 弃用警告与部署失败无关。
 
 ```text
 https://ryanyunfanxie.github.io/routingrules/shadowrocket/routingrules_hk.list
@@ -86,10 +82,8 @@ The v2rayN JSON format follows the [v2rayN custom routing rules documentation](h
 
 v2rayN JSON 格式依据 [v2rayN 自定义路由规则说明](https://github.com/2dust/v2rayn/wiki/Description-of-custom-routing-rules)。
 
-## Research scope and limitations
+## Research scope and limitations / 研究范围与限制
 
-## 研究范围与限制
+See [`docs/availability_en.md`](docs/availability_en.md) for the English evidence and service-by-service notes. The Hong Kong set primarily uses official service availability documentation; the mainland set also considers GreatFire measurements of mainland network blocking. Regional policies and network conditions can change, so the manifests should be reviewed periodically.
 
-See [`docs/availability.md`](docs/availability.md) for the evidence and service-by-service notes. The Hong Kong set primarily uses official service availability documentation; the mainland set also considers GreatFire measurements of mainland network blocking. Regional policies and network conditions can change, so the manifests should be reviewed periodically.
-
-详细证据和逐项说明请见 [`docs/availability.md`](docs/availability.md)。香港版主要依据服务商官方可用地区文档；大陆版同时参考 GreatFire 对大陆网络阻断情况的测量。服务商地区政策和网络状况会变化，因此应定期复核配置文件。
+详细证据和逐项说明请见 [`docs/availability_cn.md`](docs/availability_cn.md)。香港版主要依据服务商官方可用地区文档；大陆版同时参考 GreatFire 对大陆网络阻断情况的测量。服务商地区政策和网络状况会变化，因此应定期复核配置文件。
