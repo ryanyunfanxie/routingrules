@@ -25,11 +25,17 @@ jobs:
         with:
           python-version: '3.x'
       - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
+        with:
+          # A PAGES_TOKEN lets configure-pages enable Pages when the repository
+          # has never been configured. Without it, the normal GitHub Actions
+          # token can still read an already-enabled Pages site.
+          enablement: true
+          token: ${{ secrets.PAGES_TOKEN || github.token }}
       - name: Build public rule files
         run: python scripts/build_rules.py
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: public
 
@@ -45,4 +51,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
