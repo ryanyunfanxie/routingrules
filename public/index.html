@@ -2,25 +2,23 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>routingrules / 区域选择性服务路由规则</title>
+<title>routingrules</title>
 <style>body{font:16px system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}p{margin:.7rem 0}ul{padding-left:1.5rem}li{margin:.35rem 0}code{background:#f1f3f5;padding:.15rem .3rem;border-radius:.25rem}li div+div{margin-top:.1rem;color:#333}a{margin-right:.6rem}</style>
-<h1>routingrules / 区域选择性服务路由规则</h1>
-<p>Regional routing profiles. Public, unauthenticated rule files; no node credentials or subscription tokens are included.</p>
-<p>区域路由配置。规则文件公开且无需认证，不包含代理节点凭据或订阅 token。</p>
-<h2>Hong Kong selective service routing rules / 香港选择性服务路由规则</h2>
+<h1>routingrules</h1>
+<h2>routingrules_hk</h2>
 <p>Selective routing for services unavailable or region-sensitive from Hong Kong egress</p>
 <p>针对从香港出口不可用或受地区限制的服务进行选择性路由</p>
 <ul>
 <li><a href="shadowrocket/routingrules_hk.list">Shadowrocket rule set / Shadowrocket 规则集</a></li>
-<li><a href="v2rayn/routingrules_hk.json">v2rayN custom routing JSON / v2rayN 自定义路由 JSON</a></li>
+<li><a href="v2rayn/routingrules_hk.json">v2rayN rule set JSON / v2rayN 规则集 JSON</a></li>
 </ul>
 <h3>Sites / 站点</h3>
-<ul><li><div lang="en">OpenAI / ChatGPT / API</div><div lang="zh">OpenAI / ChatGPT / API</div></li><li><div lang="en">Anthropic / Claude / Claude API</div><div lang="zh">Anthropic / Claude / Claude API</div></li><li><div lang="en">Google AI Studio / Gemini API</div><div lang="zh">Google AI Studio / Gemini API</div></li><li><div lang="en">Google Antigravity / Cloud Code endpoints</div><div lang="zh">Google Antigravity / Cloud Code 端点</div></li><li><div lang="en">TikTok / ByteDance delivery services</div><div lang="zh">TikTok / ByteDance 传输服务</div></li></ul><h2>Mainland China whitelist routing rules / 中国大陆白名单路由规则</h2>
+<ul><li><div lang="en">OpenAI / ChatGPT / API</div><div lang="zh">OpenAI / ChatGPT / API</div></li><li><div lang="en">Anthropic / Claude / Claude API</div><div lang="zh">Anthropic / Claude / Claude API</div></li><li><div lang="en">Google AI Studio / Gemini API</div><div lang="zh">Google AI Studio / Gemini API</div></li><li><div lang="en">Google Antigravity / Cloud Code endpoints</div><div lang="zh">Google Antigravity / Cloud Code 端点</div></li><li><div lang="en">TikTok / ByteDance delivery services</div><div lang="zh">TikTok / ByteDance 传输服务</div></li></ul><h2>routingrules_cn</h2>
 <p>v2rayN-style Whitelist routing: direct mainland China and private traffic, proxy everything else</p>
 <p>中国大陆域名和 IP 直连，其余流量代理</p>
 <ul>
 <li><a href="shadowrocket/routingrules_cn.list">Shadowrocket rule set / Shadowrocket 规则集</a></li>
-<li><a href="v2rayn/routingrules_cn.json">v2rayN custom routing JSON / v2rayN 自定义路由 JSON</a></li>
+<li><a href="v2rayn/routingrules_cn.json">v2rayN rule set JSON / v2rayN 规则集 JSON</a></li>
 </ul>
 <h3>Sites / 站点</h3>
 <ul><li><div lang="en">OpenAI / ChatGPT / API</div><div lang="zh">OpenAI / ChatGPT / API</div></li><li><div lang="en">Anthropic / Claude / Claude API</div><div lang="zh">Anthropic / Claude / Claude API</div></li><li><div lang="en">Google AI Studio / Gemini / Gemini API</div><div lang="zh">Google AI Studio / Gemini / Gemini API</div></li><li><div lang="en">Google Antigravity / Cloud Code endpoints</div><div lang="zh">Google Antigravity / Cloud Code 端点</div></li><li><div lang="en">Google Search / Gmail / Google services</div><div lang="zh">Google 搜索 / Gmail / Google 服务</div></li><li><div lang="en">YouTube</div><div lang="zh">YouTube</div></li><li><div lang="en">TikTok / ByteDance international services</div><div lang="zh">TikTok / ByteDance 国际服务</div></li><li><div lang="en">Facebook / Instagram / Threads</div><div lang="zh">Facebook / Instagram / Threads</div></li><li><div lang="en">X / Twitter</div><div lang="zh">X / Twitter</div></li><li><div lang="en">Telegram</div><div lang="zh">Telegram</div></li><li><div lang="en">WhatsApp</div><div lang="zh">WhatsApp</div></li><li><div lang="en">Discord</div><div lang="zh">Discord</div></li><li><div lang="en">Reddit</div><div lang="zh">Reddit</div></li><li><div lang="en">Wikipedia / Wikimedia</div><div lang="zh">Wikipedia / Wikimedia</div></li><li><div lang="en">Netflix</div><div lang="zh">Netflix</div></li><li><div lang="en">Disney+</div><div lang="zh">Disney+</div></li><li><div lang="en">Max / HBO Max</div><div lang="zh">Max / HBO Max</div></li><li><div lang="en">Amazon Prime Video</div><div lang="zh">Amazon Prime Video</div></li><li><div lang="en">Twitch</div><div lang="zh">Twitch</div></li><li><div lang="en">Spotify</div><div lang="zh">Spotify</div></li><li><div lang="en">SoundCloud</div><div lang="zh">SoundCloud</div></li><li><div lang="en">Pinterest</div><div lang="zh">Pinterest</div></li><li><div lang="en">Snapchat</div><div lang="zh">Snapchat</div></li><li><div lang="en">Tumblr</div><div lang="zh">Tumblr</div></li><li><div lang="en">LINE</div><div lang="zh">LINE</div></li><li><div lang="en">Signal</div><div lang="zh">Signal</div></li><li><div lang="en">Vimeo</div><div lang="zh">Vimeo</div></li><li><div lang="en">Flickr</div><div lang="zh">Flickr</div></li><li><div lang="en">Medium</div><div lang="zh">Medium</div></li><li><div lang="en">Dropbox</div><div lang="zh">Dropbox</div></li><li><div lang="en">Box</div><div lang="zh">Box</div></li><li><div lang="en">Notion</div><div lang="zh">Notion</div></li><li><div lang="en">Steam Community</div><div lang="zh">Steam Community</div></li></ul>
