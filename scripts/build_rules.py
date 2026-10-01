@@ -21,11 +21,11 @@ DOMAIN_RE = re.compile(r"^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$")
 
 DISPLAY_NAME_ZH = {
     "hk": "香港选择性服务路由规则",
-    "cn": "中国大陆选择性服务路由规则",
+    "cn": "中国大陆白名单路由规则",
 }
 DESCRIPTION_ZH = {
     "hk": "针对从香港出口不可用或受地区限制的服务进行选择性路由",
-    "cn": "针对从中国大陆出口受限制或不可用的服务进行选择性路由",
+    "cn": "中国大陆域名和 IP 直连，其余流量代理",
 }
 STATUS_ZH = {
     "confirmed_region_restricted": "已确认地区受限",
@@ -52,6 +52,38 @@ SERVICE_NAME_ZH = {
     ("cn", "discord"): "Discord",
     ("cn", "reddit"): "Reddit",
     ("cn", "wikipedia"): "Wikipedia / Wikimedia",
+    ("cn", "netflix"): "Netflix",
+    ("cn", "disney-plus"): "Disney+",
+    ("cn", "max"): "Max / HBO Max",
+    ("cn", "prime-video"): "Amazon Prime Video",
+    ("cn", "twitch"): "Twitch",
+    ("cn", "spotify"): "Spotify",
+    ("cn", "soundcloud"): "SoundCloud",
+    ("cn", "pinterest"): "Pinterest",
+    ("cn", "snapchat"): "Snapchat",
+    ("cn", "tumblr"): "Tumblr",
+    ("cn", "line"): "LINE",
+    ("cn", "signal"): "Signal",
+    ("cn", "vimeo"): "Vimeo",
+    ("cn", "flickr"): "Flickr",
+    ("cn", "medium"): "Medium",
+    ("cn", "dropbox"): "Dropbox",
+    ("cn", "box"): "Box",
+    ("cn", "notion"): "Notion",
+    ("cn", "steam-community"): "Steam Community",
+}
+SHADOWROCKET_GEOSITE_DOMAINS = {
+    "geosite:google": (
+        "google.com",
+        "google.com.hk",
+        "google.cn",
+        "googleapis.com",
+        "googleapis.cn",
+        "gstatic.com",
+        "googleusercontent.com",
+        "gmail.com",
+        "googlevideo.com",
+    ),
 }
 REASON_ZH = {
     ("hk", "openai"): "OpenAI 官方 ChatGPT 和 API 支持地区列表不包含香港。",
@@ -124,6 +156,10 @@ def json_dump(value: object, path: Path) -> None:
 
 
 def build_shadowrocket(manifest: dict, source: Path, output: Path) -> None:
+    if manifest.get("routing_mode") == "mainland_whitelist":
+        build_shadowrocket_mainland_whitelist(manifest, source, output)
+        return
+
     policy = manifest["shadowrocket_policy"]
     lines = [
         f"# {manifest.get('display_name', manifest['name'])}",
@@ -136,11 +172,47 @@ def build_shadowrocket(manifest: dict, source: Path, output: Path) -> None:
         lines.append(f"# {service['name']}")
         lines.extend(f"DOMAIN-SUFFIX,{domain},{policy}" for domain in service["domains"])
         lines.append("")
+    lines.extend([
+        "# Default direct fallback / 默认直连兜底",
+        "FINAL,DIRECT",
+    ])
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+
+
+def build_shadowrocket_mainland_whitelist(manifest: dict, source: Path, output: Path) -> None:
+    whitelist = manifest["mainland_whitelist"]
+    direct = manifest.get("shadowrocket_direct_policy", "DIRECT")
+    proxy = manifest["shadowrocket_policy"]
+    lines = [
+        f"# {manifest.get('display_name', manifest['name'])}",
+        "# v2rayN-style Mainland China Whitelist: China traffic DIRECT, everything else PROXY.",
+        f"# Generated from {source.relative_to(ROOT).as_posix()}; checked {manifest['last_checked']}.",
+        "# This is a whitelist profile; it intentionally ends with a proxy fallback.",
+        "",
+    ]
+    if whitelist.get("block_udp443"):
+        lines.append("AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT")
+    for domain_rule in whitelist.get("proxy_domains", []):
+        domains = SHADOWROCKET_GEOSITE_DOMAINS.get(domain_rule, (domain_rule,))
+        for domain in domains:
+            if domain.startswith("geosite:"):
+                continue
+            lines.append(f"DOMAIN-SUFFIX,{domain},{proxy}")
+    lines.extend([
+        f"GEOIP,LAN,{direct}",
+        f"GEOIP,CN,{direct}",
+        f"FINAL,{proxy}",
+    ])
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
 
 def build_v2rayn(manifest: dict, output: Path) -> None:
+    if manifest.get("routing_mode") == "mainland_whitelist":
+        build_v2rayn_mainland_whitelist(manifest, output)
+        return
+
     outbound = manifest["v2rayn_outbound_tag"]
     rules = []
     for service in manifest["services"]:
@@ -164,26 +236,75 @@ def build_v2rayn(manifest: dict, output: Path) -> None:
     json_dump(rules, output)
 
 
+def build_v2rayn_mainland_whitelist(manifest: dict, output: Path) -> None:
+    whitelist = manifest["mainland_whitelist"]
+    direct = manifest.get("v2rayn_direct_outbound_tag", "direct")
+    proxy = manifest.get("v2rayn_outbound_tag", "proxy")
+    block = manifest.get("v2rayn_block_outbound_tag", "block")
+    direct_ip = whitelist.get("direct_ip", [])
+    direct_domain = whitelist.get("direct_domain", [])
+    rules = []
+
+    if whitelist.get("block_udp443"):
+        rules.append(
+            {
+                "remarks": "阻断udp443",
+                "outboundTag": block,
+                "port": "443",
+                "network": "udp",
+            }
+        )
+    proxy_domains = whitelist.get("proxy_domains", [])
+    if proxy_domains:
+        rules.append(
+            {
+                "remarks": "代理Google",
+                "outboundTag": proxy,
+                "domain": proxy_domains,
+            }
+        )
+
+    private_ip = [item for item in direct_ip if item == "geoip:private"]
+    dns_ip = [item for item in direct_ip if item not in {"geoip:private", "geoip:cn"}]
+    cn_ip = [item for item in direct_ip if item == "geoip:cn"]
+    private_domain = [item for item in direct_domain if item == "geosite:private"]
+    dns_domain = [item for item in direct_domain if item not in {"geosite:private", "geosite:cn"}]
+    cn_domain = [item for item in direct_domain if item == "geosite:cn"]
+
+    if private_ip:
+        rules.append({"remarks": "绕过局域网IP", "outboundTag": direct, "ip": private_ip})
+    if private_domain:
+        rules.append({"remarks": "绕过局域网域名", "outboundTag": direct, "domain": private_domain})
+    if dns_ip:
+        rules.append({"remarks": "绕过中国公共DNSIP", "outboundTag": direct, "ip": dns_ip})
+    if dns_domain:
+        rules.append({"remarks": "绕过中国公共DNS域名", "outboundTag": direct, "domain": dns_domain})
+    if cn_ip:
+        rules.append({"remarks": "绕过中国IP", "outboundTag": direct, "ip": cn_ip})
+    if cn_domain:
+        rules.append({"remarks": "绕过中国域名", "outboundTag": direct, "domain": cn_domain})
+    if whitelist.get("proxy_fallback", True):
+        rules.append(
+            {
+                "port": "0-65535",
+                "outboundTag": proxy,
+                "enabled": True,
+                "remarks": "Default proxy fallback / 默认代理兜底",
+            }
+        )
+    json_dump(rules, output)
+
+
 def build_index(manifests: list[dict], output: Path) -> None:
     sections = []
     for manifest in manifests:
         region = manifest["region"]
-        service_rows = []
+        service_items = []
         for service in manifest["services"]:
-            links = " ".join(
-                f'<a href="{html.escape(source["url"], quote=True)}">source / 来源</a>'
-                for source in service["sources"]
-            )
             service_name_zh = SERVICE_NAME_ZH.get((region, service["id"]), service["name"])
-            reason_zh = REASON_ZH.get((region, service["id"]), service["reason"])
-            status_zh = STATUS_ZH.get(service["status"], service["status"])
-            service_rows.append(
-                "<tr>"
-                f"<td><div lang=\"en\">{html.escape(service['name'])}</div><div lang=\"zh\">{html.escape(service_name_zh)}</div></td>"
-                f"<td><div lang=\"en\"><code>{html.escape(service['status'])}</code></div><div lang=\"zh\"><code>{html.escape(status_zh)}</code></div></td>"
-                f"<td><div lang=\"en\">{html.escape(service['reason'])}</div><div lang=\"zh\">{html.escape(reason_zh)}</div></td>"
-                f"<td>{links}</td>"
-                "</tr>"
+            service_items.append(
+                f"<li><div lang=\"en\">{html.escape(service['name'])}</div>"
+                f"<div lang=\"zh\">{html.escape(service_name_zh)}</div></li>"
             )
         slug = html.escape(manifest["slug"], quote=True)
         display_name = manifest.get("display_name", manifest["name"])
@@ -198,17 +319,18 @@ def build_index(manifests: list[dict], output: Path) -> None:
 <li><a href="shadowrocket/{slug}.list">Shadowrocket rule set / Shadowrocket 规则集</a></li>
 <li><a href="v2rayn/{slug}.json">v2rayN custom routing JSON / v2rayN 自定义路由 JSON</a></li>
 </ul>
-<table><thead><tr><th>Service / 服务</th><th>Status / 状态</th><th>Why included / 纳入原因</th><th>Sources / 来源</th></tr></thead><tbody>{''.join(service_rows)}</tbody></table>"""
+<h3>Sites / 站点</h3>
+<ul>{''.join(service_items)}</ul>"""
         )
     body = f"""<!doctype html>
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>routingrules / 区域选择性服务路由规则</title>
-<style>body{{font:16px system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}}p{{margin:.7rem 0}}code{{background:#f1f3f5;padding:.15rem .3rem;border-radius:.25rem}}table{{border-collapse:collapse;width:100%}}td,th{{border:1px solid #ddd;padding:.5rem;text-align:left;vertical-align:top}}td div+div{{margin-top:.45rem;color:#333}}a{{margin-right:.6rem}}</style>
+<style>body{{font:16px system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}}p{{margin:.7rem 0}}ul{{padding-left:1.5rem}}li{{margin:.35rem 0}}code{{background:#f1f3f5;padding:.15rem .3rem;border-radius:.25rem}}li div+div{{margin-top:.1rem;color:#333}}a{{margin-right:.6rem}}</style>
 <h1>routingrules / 区域选择性服务路由规则</h1>
-<p>Regional selective routing rules. Public, unauthenticated rule files; no node credentials or subscription tokens are included.</p>
-<p>区域选择性服务路由规则。规则文件公开且无需认证，不包含代理节点凭据或订阅 token。</p>
+<p>Regional routing profiles. Public, unauthenticated rule files; no node credentials or subscription tokens are included.</p>
+<p>区域路由配置。规则文件公开且无需认证，不包含代理节点凭据或订阅 token。</p>
 {''.join(sections)}
 </html>
 """

@@ -1,206 +1,101 @@
 [
   {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
-    "domain": [
-      "domain:chatgpt.com",
-      "domain:chat.openai.com",
-      "domain:openai.com",
-      "domain:api.openai.com",
-      "domain:platform.openai.com",
-      "domain:auth.openai.com",
-      "domain:auth0.openai.com",
-      "domain:oaistatic.com",
-      "domain:oaiusercontent.com",
-      "domain:oaistatsig.com",
-      "domain:openaimerge.com",
-      "domain:cdn.openai.com"
-    ],
-    "remarks": "OpenAI / ChatGPT / API"
+    "remarks": "阻断udp443",
+    "outboundTag": "block",
+    "port": "443",
+    "network": "udp"
   },
   {
-    "port": "",
+    "remarks": "代理Google",
     "outboundTag": "proxy",
-    "enabled": true,
     "domain": [
-      "domain:claude.ai",
-      "domain:claude.com",
-      "domain:api.anthropic.com",
-      "domain:console.anthropic.com",
-      "domain:anthropic.com",
-      "domain:claudeusercontent.com",
-      "domain:claudemcpcontent.com",
-      "domain:claude.app"
-    ],
-    "remarks": "Anthropic / Claude / Claude API"
+      "geosite:google"
+    ]
   },
   {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
-    "domain": [
-      "domain:aistudio.google.com",
-      "domain:generativelanguage.googleapis.com",
-      "domain:makersuite.google.com",
-      "domain:gemini.google.com",
-      "domain:ai.google.dev"
-    ],
-    "remarks": "Google AI Studio / Gemini / Gemini API"
+    "remarks": "绕过局域网IP",
+    "outboundTag": "direct",
+    "ip": [
+      "geoip:private"
+    ]
   },
   {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
+    "remarks": "绕过局域网域名",
+    "outboundTag": "direct",
     "domain": [
-      "domain:antigravity.google",
-      "domain:cloudcode-pa.googleapis.com",
-      "domain:daily-cloudcode-pa.googleapis.com",
-      "domain:canary-cloudcode-pa.googleapis.com"
-    ],
-    "remarks": "Google Antigravity / Cloud Code endpoints"
+      "geosite:private"
+    ]
   },
   {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
-    "domain": [
-      "domain:google.com",
-      "domain:google.com.hk",
-      "domain:gstatic.com",
-      "domain:googleusercontent.com",
-      "domain:gmail.com",
-      "domain:accounts.google.com"
-    ],
-    "remarks": "Google Search / Gmail / Google services"
+    "remarks": "绕过中国公共DNSIP",
+    "outboundTag": "direct",
+    "ip": [
+      "223.5.5.5",
+      "223.6.6.6",
+      "2400:3200::1",
+      "2400:3200:baba::1",
+      "119.29.29.29",
+      "1.12.12.12",
+      "120.53.53.53",
+      "2402:4e00::",
+      "2402:4e00:1::",
+      "180.76.76.76",
+      "2400:da00::6666",
+      "114.114.114.114",
+      "114.114.115.115",
+      "114.114.114.119",
+      "114.114.115.119",
+      "114.114.114.110",
+      "114.114.115.110",
+      "180.184.1.1",
+      "180.184.2.2",
+      "101.226.4.6",
+      "218.30.118.6",
+      "123.125.81.6",
+      "140.207.198.6",
+      "1.2.4.8",
+      "210.2.4.8",
+      "52.80.66.66",
+      "117.50.22.22",
+      "2400:7fc0:849e:200::4",
+      "2404:c2c0:85d8:901::4",
+      "117.50.10.10",
+      "52.80.52.52",
+      "2400:7fc0:849e:200::8",
+      "2404:c2c0:85d8:901::8",
+      "117.50.60.30",
+      "52.80.60.30"
+    ]
   },
   {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
+    "remarks": "绕过中国公共DNS域名",
+    "outboundTag": "direct",
     "domain": [
-      "domain:youtube.com",
-      "domain:youtu.be",
-      "domain:youtube-nocookie.com",
-      "domain:youtubei.googleapis.com",
-      "domain:youtube.googleapis.com",
-      "domain:googlevideo.com",
-      "domain:ytimg.com",
-      "domain:yt3.ggpht.com",
-      "domain:youtube.com.hk"
-    ],
-    "remarks": "YouTube"
+      "domain:alidns.com",
+      "domain:doh.pub",
+      "domain:dot.pub",
+      "domain:360.cn",
+      "domain:onedns.net"
+    ]
   },
   {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
-    "domain": [
-      "domain:tiktok.com",
-      "domain:tiktokv.com",
-      "domain:tiktokcdn.com",
-      "domain:tiktokcdn-us.com",
-      "domain:byteoversea.com",
-      "domain:ibytedtos.com",
-      "domain:muscdn.com"
-    ],
-    "remarks": "TikTok / ByteDance international services"
+    "remarks": "绕过中国IP",
+    "outboundTag": "direct",
+    "ip": [
+      "geoip:cn"
+    ]
   },
   {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
+    "remarks": "绕过中国域名",
+    "outboundTag": "direct",
     "domain": [
-      "domain:facebook.com",
-      "domain:facebook.net",
-      "domain:fbcdn.net",
-      "domain:fbsbx.com",
-      "domain:instagram.com",
-      "domain:cdninstagram.com",
-      "domain:threads.net"
-    ],
-    "remarks": "Facebook / Instagram / Threads"
-  },
-  {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
-    "domain": [
-      "domain:x.com",
-      "domain:twitter.com",
-      "domain:twimg.com",
-      "domain:t.co",
-      "domain:ads-twitter.com"
-    ],
-    "remarks": "X / Twitter"
-  },
-  {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
-    "domain": [
-      "domain:telegram.org",
-      "domain:t.me",
-      "domain:telegram.me",
-      "domain:telegra.ph",
-      "domain:telesco.pe",
-      "domain:cdn-telegram.org"
-    ],
-    "remarks": "Telegram"
-  },
-  {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
-    "domain": [
-      "domain:whatsapp.com",
-      "domain:whatsapp.net",
-      "domain:wa.me"
-    ],
-    "remarks": "WhatsApp"
-  },
-  {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
-    "domain": [
-      "domain:discord.com",
-      "domain:discordapp.com",
-      "domain:discordapp.net",
-      "domain:discord.gg",
-      "domain:discord.media",
-      "domain:discordcdn.com"
-    ],
-    "remarks": "Discord"
-  },
-  {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
-    "domain": [
-      "domain:reddit.com",
-      "domain:redd.it",
-      "domain:redditmedia.com",
-      "domain:redditstatic.com"
-    ],
-    "remarks": "Reddit"
-  },
-  {
-    "port": "",
-    "outboundTag": "proxy",
-    "enabled": true,
-    "domain": [
-      "domain:wikipedia.org",
-      "domain:wikimedia.org",
-      "domain:wikimediafoundation.org",
-      "domain:mediawiki.org"
-    ],
-    "remarks": "Wikipedia / Wikimedia"
+      "geosite:cn"
+    ]
   },
   {
     "port": "0-65535",
-    "outboundTag": "direct",
+    "outboundTag": "proxy",
     "enabled": true,
-    "remarks": "Default direct / 默认直连"
+    "remarks": "Default proxy fallback / 默认代理兜底"
   }
 ]

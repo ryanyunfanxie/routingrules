@@ -49,3 +49,6 @@ DOMAIN-SUFFIX,byteimg.com,PROXY
 DOMAIN-SUFFIX,muscdn.com,PROXY
 DOMAIN-SUFFIX,pstatp.com,PROXY
 DOMAIN-SUFFIX,snssdk.com,PROXY
+
+# Default direct fallback / 默认直连兜底
+FINAL,DIRECT

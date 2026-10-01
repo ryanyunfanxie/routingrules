@@ -1,8 +1,8 @@
 # routingrules
 
-This repository provides two selective routing rule sets: one for Hong Kong and one for mainland China. Both use DIRECT by default and proxy only services that are unavailable, network-blocked, or subject to clear regional restrictions in the target region.
+This repository provides two routing rule sets: a selective service set for Hong Kong and a v2rayN-style mainland China Whitelist. Hong Kong uses DIRECT by default; mainland China sends private and mainland-China traffic DIRECT and proxies everything else.
 
-本仓库提供两套选择性路由规则：香港和中国大陆。两套规则都默认直连，只代理在目标地区不可用、被网络阻断或存在明确地区限制的服务。
+本仓库提供两套路由规则：香港选择性服务规则，以及复刻 v2rayN“绕过大陆（Whitelist）”逻辑的中国大陆版。香港版默认直连；大陆版将局域网和中国大陆流量直连，其余流量代理。
 
 ## Included service groups / 纳入的服务组
 
@@ -10,9 +10,9 @@ The Hong Kong rule set includes OpenAI / ChatGPT / OpenAI API, Anthropic / Claud
 
 香港版包含 OpenAI / ChatGPT / OpenAI API、Anthropic / Claude / Claude API、Google AI Studio / Gemini API、Google Antigravity / Cloud Code 端点，以及 TikTok / ByteDance delivery services。
 
-The mainland China rule set includes OpenAI, Claude, Google AI Studio / Gemini, Google services, YouTube, TikTok, Facebook, Instagram, Threads, X / Twitter, Telegram, WhatsApp, Discord, Reddit, and Wikipedia / Wikimedia.
+The mainland China profile follows the v2rayN Whitelist rule set: private IPs and domains, mainland-China public DNS endpoints, `geoip:cn`, and `geosite:cn` go DIRECT; Google goes PROXY before the mainland rules; all remaining traffic goes to the `proxy` outbound.
 
-大陆版包含 OpenAI、Claude、Google AI Studio / Gemini、Google 服务、YouTube、TikTok、Facebook、Instagram、Threads、X / Twitter、Telegram、WhatsApp、Discord、Reddit 和 Wikipedia / Wikimedia。
+大陆版复刻 v2rayN 白名单规则：局域网 IP 和域名、中国大陆公共 DNS、中国大陆 IP（`geoip:cn`）和中国大陆域名（`geosite:cn`）直连；Google 规则优先走代理；其余流量全部进入 `proxy` 出站。
 
 The rule files contain no proxy nodes, passwords, subscription tokens, or token-encryption logic. Anyone with a URL can read the public rule files, but the repository does not provide proxy credentials or nodes.
 
@@ -50,17 +50,17 @@ https://ryanyunfanxie.github.io/routingrules/shadowrocket/routingrules_cn.list
 https://ryanyunfanxie.github.io/routingrules/v2rayn/routingrules_cn.json
 ```
 
-Use the first two URLs in Hong Kong and the last two in mainland China. In Shadowrocket, add the matching `.list` file as a remote rule set and set its policy to `PROXY`. In v2rayN, import the matching `.json` file and make sure your outbound tag is `proxy`.
+Use the first two URLs in Hong Kong and the last two in mainland China. In Shadowrocket, add the matching `.list` file as a remote rule set. In v2rayN, import the matching `.json` file and make sure your `proxy`, `direct`, and `block` outbound tags use those names.
 
-在香港网络使用前两条 URL，在大陆网络使用后两条 URL。Shadowrocket 中添加对应的 `.list` 文件为远程规则集，并将策略设为 `PROXY`；v2rayN 中导入对应的 `.json` 文件，并确认出站 tag 为 `proxy`。
+在香港网络使用前两条 URL，在大陆网络使用后两条 URL。Shadowrocket 中添加对应的 `.list` 文件为远程规则集；v2rayN 中导入对应的 `.json` 文件，并确认 `proxy`、`direct`、`block` 出站 tag 与文件一致。
 
-If your actual proxy or direct outbound tag is different, update `v2rayn_outbound_tag` or `v2rayn_direct_outbound_tag` in the corresponding regional configuration file and rebuild the rules.
+If your actual proxy, direct, or block outbound tag is different, update `v2rayn_outbound_tag`, `v2rayn_direct_outbound_tag`, or `v2rayn_block_outbound_tag` in the corresponding regional configuration file and rebuild the rules.
 
-如果实际的代理或直连出站 tag 不同，请修改对应地区配置文件中的 `v2rayn_outbound_tag` 或 `v2rayn_direct_outbound_tag`，然后重新生成规则。
+如果实际的代理、直连或阻断出站 tag 不同，请修改对应地区配置文件中的 `v2rayn_outbound_tag`、`v2rayn_direct_outbound_tag` 或 `v2rayn_block_outbound_tag`，然后重新生成规则。
 
-The v2rayN JSON format follows the [v2rayN custom routing rules documentation](https://github.com/2dust/v2rayn/wiki/Description-of-custom-routing-rules). Each regional JSON is an independent routing profile at the same level as Global, Whitelist, and Blacklist; select only one active routing profile. The generated JSON ends with a full-port `direct` fallback, so only listed services use `proxy`.
+The v2rayN JSON format follows the [v2rayN custom routing rules documentation](https://github.com/2dust/v2rayn/wiki/Description-of-custom-routing-rules). Each regional JSON is an independent routing profile at the same level as Global, Whitelist, and Blacklist; select only one active routing profile. The Hong Kong profile ends with a full-port `direct` fallback. The mainland profile instead ends with a full-port `proxy` fallback, which is required for Whitelist behavior.
 
-v2rayN JSON 格式依据 [v2rayN 自定义路由规则说明](https://github.com/2dust/v2rayn/wiki/Description-of-custom-routing-rules)。每个地区的 JSON 都是与 Global、Whitelist、Blacklist 同级的独立路由配置，只选择一个启用。生成的 JSON 最后包含全端口 `direct` 兜底，因此只有清单中的服务使用 `proxy`。
+v2rayN JSON 格式依据 [v2rayN 自定义路由规则说明](https://github.com/2dust/v2rayn/wiki/Description-of-custom-routing-rules)。每个地区的 JSON 都是与 Global、Whitelist、Blacklist 同级的独立路由配置，只选择一个启用。香港版最后是全端口 `direct` 兜底；大陆版最后改为全端口 `proxy` 兜底，这是白名单模式所必需的行为。
 
 ## Research scope and limitations / 研究范围与限制
 

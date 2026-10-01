@@ -1,118 +1,18 @@
-# Mainland China selective service routing rules
-# Selective rules: only matched services use the proxy.
+# Mainland China whitelist routing rules
+# v2rayN-style Mainland China Whitelist: China traffic DIRECT, everything else PROXY.
 # Generated from config/services_cn.json; checked 2026-10-02.
-# Set the policy name below to the policy/group name in Shadowrocket.
+# This is a whitelist profile; it intentionally ends with a proxy fallback.
 
-# OpenAI / ChatGPT / API
-DOMAIN-SUFFIX,chatgpt.com,PROXY
-DOMAIN-SUFFIX,chat.openai.com,PROXY
-DOMAIN-SUFFIX,openai.com,PROXY
-DOMAIN-SUFFIX,api.openai.com,PROXY
-DOMAIN-SUFFIX,platform.openai.com,PROXY
-DOMAIN-SUFFIX,auth.openai.com,PROXY
-DOMAIN-SUFFIX,auth0.openai.com,PROXY
-DOMAIN-SUFFIX,oaistatic.com,PROXY
-DOMAIN-SUFFIX,oaiusercontent.com,PROXY
-DOMAIN-SUFFIX,oaistatsig.com,PROXY
-DOMAIN-SUFFIX,openaimerge.com,PROXY
-DOMAIN-SUFFIX,cdn.openai.com,PROXY
-
-# Anthropic / Claude / Claude API
-DOMAIN-SUFFIX,claude.ai,PROXY
-DOMAIN-SUFFIX,claude.com,PROXY
-DOMAIN-SUFFIX,api.anthropic.com,PROXY
-DOMAIN-SUFFIX,console.anthropic.com,PROXY
-DOMAIN-SUFFIX,anthropic.com,PROXY
-DOMAIN-SUFFIX,claudeusercontent.com,PROXY
-DOMAIN-SUFFIX,claudemcpcontent.com,PROXY
-DOMAIN-SUFFIX,claude.app,PROXY
-
-# Google AI Studio / Gemini / Gemini API
-DOMAIN-SUFFIX,aistudio.google.com,PROXY
-DOMAIN-SUFFIX,generativelanguage.googleapis.com,PROXY
-DOMAIN-SUFFIX,makersuite.google.com,PROXY
-DOMAIN-SUFFIX,gemini.google.com,PROXY
-DOMAIN-SUFFIX,ai.google.dev,PROXY
-
-# Google Antigravity / Cloud Code endpoints
-DOMAIN-SUFFIX,antigravity.google,PROXY
-DOMAIN-SUFFIX,cloudcode-pa.googleapis.com,PROXY
-DOMAIN-SUFFIX,daily-cloudcode-pa.googleapis.com,PROXY
-DOMAIN-SUFFIX,canary-cloudcode-pa.googleapis.com,PROXY
-
-# Google Search / Gmail / Google services
+AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
 DOMAIN-SUFFIX,google.com,PROXY
 DOMAIN-SUFFIX,google.com.hk,PROXY
+DOMAIN-SUFFIX,google.cn,PROXY
+DOMAIN-SUFFIX,googleapis.com,PROXY
+DOMAIN-SUFFIX,googleapis.cn,PROXY
 DOMAIN-SUFFIX,gstatic.com,PROXY
 DOMAIN-SUFFIX,googleusercontent.com,PROXY
 DOMAIN-SUFFIX,gmail.com,PROXY
-DOMAIN-SUFFIX,accounts.google.com,PROXY
-
-# YouTube
-DOMAIN-SUFFIX,youtube.com,PROXY
-DOMAIN-SUFFIX,youtu.be,PROXY
-DOMAIN-SUFFIX,youtube-nocookie.com,PROXY
-DOMAIN-SUFFIX,youtubei.googleapis.com,PROXY
-DOMAIN-SUFFIX,youtube.googleapis.com,PROXY
 DOMAIN-SUFFIX,googlevideo.com,PROXY
-DOMAIN-SUFFIX,ytimg.com,PROXY
-DOMAIN-SUFFIX,yt3.ggpht.com,PROXY
-DOMAIN-SUFFIX,youtube.com.hk,PROXY
-
-# TikTok / ByteDance international services
-DOMAIN-SUFFIX,tiktok.com,PROXY
-DOMAIN-SUFFIX,tiktokv.com,PROXY
-DOMAIN-SUFFIX,tiktokcdn.com,PROXY
-DOMAIN-SUFFIX,tiktokcdn-us.com,PROXY
-DOMAIN-SUFFIX,byteoversea.com,PROXY
-DOMAIN-SUFFIX,ibytedtos.com,PROXY
-DOMAIN-SUFFIX,muscdn.com,PROXY
-
-# Facebook / Instagram / Threads
-DOMAIN-SUFFIX,facebook.com,PROXY
-DOMAIN-SUFFIX,facebook.net,PROXY
-DOMAIN-SUFFIX,fbcdn.net,PROXY
-DOMAIN-SUFFIX,fbsbx.com,PROXY
-DOMAIN-SUFFIX,instagram.com,PROXY
-DOMAIN-SUFFIX,cdninstagram.com,PROXY
-DOMAIN-SUFFIX,threads.net,PROXY
-
-# X / Twitter
-DOMAIN-SUFFIX,x.com,PROXY
-DOMAIN-SUFFIX,twitter.com,PROXY
-DOMAIN-SUFFIX,twimg.com,PROXY
-DOMAIN-SUFFIX,t.co,PROXY
-DOMAIN-SUFFIX,ads-twitter.com,PROXY
-
-# Telegram
-DOMAIN-SUFFIX,telegram.org,PROXY
-DOMAIN-SUFFIX,t.me,PROXY
-DOMAIN-SUFFIX,telegram.me,PROXY
-DOMAIN-SUFFIX,telegra.ph,PROXY
-DOMAIN-SUFFIX,telesco.pe,PROXY
-DOMAIN-SUFFIX,cdn-telegram.org,PROXY
-
-# WhatsApp
-DOMAIN-SUFFIX,whatsapp.com,PROXY
-DOMAIN-SUFFIX,whatsapp.net,PROXY
-DOMAIN-SUFFIX,wa.me,PROXY
-
-# Discord
-DOMAIN-SUFFIX,discord.com,PROXY
-DOMAIN-SUFFIX,discordapp.com,PROXY
-DOMAIN-SUFFIX,discordapp.net,PROXY
-DOMAIN-SUFFIX,discord.gg,PROXY
-DOMAIN-SUFFIX,discord.media,PROXY
-DOMAIN-SUFFIX,discordcdn.com,PROXY
-
-# Reddit
-DOMAIN-SUFFIX,reddit.com,PROXY
-DOMAIN-SUFFIX,redd.it,PROXY
-DOMAIN-SUFFIX,redditmedia.com,PROXY
-DOMAIN-SUFFIX,redditstatic.com,PROXY
-
-# Wikipedia / Wikimedia
-DOMAIN-SUFFIX,wikipedia.org,PROXY
-DOMAIN-SUFFIX,wikimedia.org,PROXY
-DOMAIN-SUFFIX,wikimediafoundation.org,PROXY
-DOMAIN-SUFFIX,mediawiki.org,PROXY
+GEOIP,LAN,DIRECT
+GEOIP,CN,DIRECT
+FINAL,PROXY

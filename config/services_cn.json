@@ -1,14 +1,71 @@
 {
   "name": "routingrules_cn",
-  "display_name": "Mainland China selective service routing rules",
+  "display_name": "Mainland China whitelist routing rules",
   "slug": "routingrules_cn",
   "region": "cn",
-  "description": "Selective routing for services restricted or unavailable from mainland China egress",
+  "description": "v2rayN-style Whitelist routing: direct mainland China and private traffic, proxy everything else",
   "schema_version": 1,
   "last_checked": "2026-10-02",
+  "routing_mode": "mainland_whitelist",
   "shadowrocket_policy": "PROXY",
   "v2rayn_outbound_tag": "proxy",
   "v2rayn_direct_outbound_tag": "direct",
+  "v2rayn_block_outbound_tag": "block",
+  "mainland_whitelist": {
+    "block_udp443": true,
+    "proxy_domains": [
+      "geosite:google"
+    ],
+    "direct_ip": [
+      "geoip:private",
+      "223.5.5.5",
+      "223.6.6.6",
+      "2400:3200::1",
+      "2400:3200:baba::1",
+      "119.29.29.29",
+      "1.12.12.12",
+      "120.53.53.53",
+      "2402:4e00::",
+      "2402:4e00:1::",
+      "180.76.76.76",
+      "2400:da00::6666",
+      "114.114.114.114",
+      "114.114.115.115",
+      "114.114.114.119",
+      "114.114.115.119",
+      "114.114.114.110",
+      "114.114.115.110",
+      "180.184.1.1",
+      "180.184.2.2",
+      "101.226.4.6",
+      "218.30.118.6",
+      "123.125.81.6",
+      "140.207.198.6",
+      "1.2.4.8",
+      "210.2.4.8",
+      "52.80.66.66",
+      "117.50.22.22",
+      "2400:7fc0:849e:200::4",
+      "2404:c2c0:85d8:901::4",
+      "117.50.10.10",
+      "52.80.52.52",
+      "2400:7fc0:849e:200::8",
+      "2404:c2c0:85d8:901::8",
+      "117.50.60.30",
+      "52.80.60.30",
+      "geoip:cn"
+    ],
+    "direct_domain": [
+      "geosite:private",
+      "domain:alidns.com",
+      "domain:doh.pub",
+      "domain:dot.pub",
+      "domain:360.cn",
+      "domain:onedns.net",
+      "geosite:cn"
+    ],
+    "proxy_fallback": true
+  },
   "services": [
     {
       "id": "openai",
@@ -338,6 +395,350 @@
         "wikimedia.org",
         "wikimediafoundation.org",
         "mediawiki.org"
+      ]
+    },
+    {
+      "id": "netflix",
+      "name": "Netflix",
+      "status": "confirmed_region_restricted",
+      "reason": "Netflix's official help documentation says Netflix is not available in China. The rule also covers Netflix's official mobile-delivery domains.",
+      "sources": [
+        {
+          "title": "Netflix Help: Where is Netflix available?",
+          "url": "https://help.netflix.com/en/node/14164"
+        },
+        {
+          "title": "Netflix Open Connect mobile delivery domains",
+          "url": "https://openconnect.netflix.com/mobiledeliverydomains.txt"
+        }
+      ],
+      "domains": [
+        "netflix.com",
+        "nflxext.com",
+        "nflximg.net",
+        "nflximg.com",
+        "nflxsearch.net",
+        "nflxso.net",
+        "nflxvideo.net"
+      ]
+    },
+    {
+      "id": "disney-plus",
+      "name": "Disney+",
+      "status": "confirmed_region_restricted",
+      "reason": "Disney's official regional launch information lists Hong Kong, Taiwan, and other Asia-Pacific markets but does not list mainland China as a Disney+ market.",
+      "sources": [
+        {
+          "title": "Disney+ Asia-Pacific launch announcement",
+          "url": "https://press.disneyplus.com/news/disney-plus-launch-in-south-korea-hong-kong-taiwan-november-2021"
+        },
+        {
+          "title": "Disney+ Hong Kong",
+          "url": "https://www.disneyplus.com/en-hk"
+        }
+      ],
+      "domains": [
+        "disneyplus.com",
+        "disney-plus.net",
+        "bamgrid.com"
+      ]
+    },
+    {
+      "id": "max",
+      "name": "Max / HBO Max",
+      "status": "confirmed_region_restricted",
+      "reason": "Max's official availability list includes Hong Kong, Taiwan, and other Asia-Pacific markets but does not include mainland China.",
+      "sources": [
+        {
+          "title": "Max availability by country",
+          "url": "https://help.max.com/sr-en/Answer/Detail/000002518"
+        }
+      ],
+      "domains": [
+        "max.com",
+        "hbomax.com"
+      ]
+    },
+    {
+      "id": "prime-video",
+      "name": "Amazon Prime Video",
+      "status": "confirmed_region_restricted",
+      "reason": "Amazon's Prime Video availability information excludes mainland China from the service's supported territories.",
+      "sources": [
+        {
+          "title": "Amazon forum: Prime Video availability",
+          "url": "https://www.amazonforum.com/s/question/0D56Q0000Cw7isRSQQ/cannot-buy-subscription"
+        },
+        {
+          "title": "Prime Video help: availability varies by location",
+          "url": "https://www.primevideo.com/help?nodeId=202095490"
+        }
+      ],
+      "domains": [
+        "primevideo.com",
+        "amazonvideo.com",
+        "aiv-cdn.net",
+        "aiv-delivery.net"
+      ]
+    },
+    {
+      "id": "twitch",
+      "name": "Twitch",
+      "status": "confirmed_region_restricted",
+      "reason": "GreatFire's current measurement shows Twitch's domain set blocked from mainland China.",
+      "sources": [
+        {
+          "title": "GreatFire Twitch measurement",
+          "url": "https://en.greatfire.org/twitch.tv"
+        }
+      ],
+      "domains": [
+        "twitch.tv",
+        "twitchcdn.net",
+        "ttvnw.net",
+        "jtvnw.net",
+        "twitchsvc.net",
+        "twitchapps.com"
+      ]
+    },
+    {
+      "id": "spotify",
+      "name": "Spotify",
+      "status": "region_sensitive",
+      "reason": "GreatFire's current measurements are mixed and indicate that Spotify access can vary by endpoint and network; it is included as a region-sensitive service.",
+      "sources": [
+        {
+          "title": "GreatFire Spotify measurement",
+          "url": "https://en.greatfire.org/spotify.com"
+        }
+      ],
+      "domains": [
+        "spotify.com",
+        "scdn.co",
+        "spotifycdn.com",
+        "spoti.fi"
+      ]
+    },
+    {
+      "id": "soundcloud",
+      "name": "SoundCloud",
+      "status": "confirmed_region_restricted",
+      "reason": "GreatFire's current measurements show SoundCloud and its primary delivery domain mostly blocked from mainland China.",
+      "sources": [
+        {
+          "title": "GreatFire SoundCloud measurement",
+          "url": "https://en.greatfire.org/soundcloud.com"
+        }
+      ],
+      "domains": [
+        "soundcloud.com",
+        "sndcdn.com"
+      ]
+    },
+    {
+      "id": "pinterest",
+      "name": "Pinterest",
+      "status": "confirmed_region_restricted",
+      "reason": "GreatFire's current measurement shows Pinterest blocked from mainland China.",
+      "sources": [
+        {
+          "title": "GreatFire Pinterest measurement",
+          "url": "https://en.greatfire.org/pinterest.com"
+        }
+      ],
+      "domains": [
+        "pinterest.com",
+        "pinimg.com",
+        "pinterestmail.com"
+      ]
+    },
+    {
+      "id": "snapchat",
+      "name": "Snapchat",
+      "status": "region_sensitive",
+      "reason": "GreatFire's current measurements show Snapchat endpoints can be disrupted and access is not uniform, so it is included as region-sensitive.",
+      "sources": [
+        {
+          "title": "GreatFire Snapchat measurement",
+          "url": "https://en.greatfire.org/snapchat.com"
+        }
+      ],
+      "domains": [
+        "snapchat.com",
+        "snap.com",
+        "sc-cdn.net"
+      ]
+    },
+    {
+      "id": "tumblr",
+      "name": "Tumblr",
+      "status": "confirmed_region_restricted",
+      "reason": "GreatFire's current measurement shows Tumblr blocked from mainland China.",
+      "sources": [
+        {
+          "title": "GreatFire Tumblr measurement",
+          "url": "https://en.greatfire.org/tumblr.com"
+        }
+      ],
+      "domains": [
+        "tumblr.com",
+        "tumblr.net"
+      ]
+    },
+    {
+      "id": "line",
+      "name": "LINE",
+      "status": "confirmed_region_restricted",
+      "reason": "GreatFire's current measurement shows LINE blocked from mainland China.",
+      "sources": [
+        {
+          "title": "GreatFire LINE measurement",
+          "url": "https://en.greatfire.org/line.me"
+        }
+      ],
+      "domains": [
+        "line.me",
+        "line-scdn.net",
+        "line-apps.com"
+      ]
+    },
+    {
+      "id": "signal",
+      "name": "Signal",
+      "status": "region_sensitive",
+      "reason": "GreatFire's measurement history shows Signal blocked, but the latest available test is older than the other entries; it is included as region-sensitive.",
+      "sources": [
+        {
+          "title": "GreatFire Signal measurement",
+          "url": "https://en.greatfire.org/signal.org"
+        }
+      ],
+      "domains": [
+        "signal.org",
+        "signal.me",
+        "signal.group",
+        "whispersystems.org"
+      ]
+    },
+    {
+      "id": "vimeo",
+      "name": "Vimeo",
+      "status": "confirmed_region_restricted",
+      "reason": "GreatFire's current measurement shows Vimeo blocked from mainland China.",
+      "sources": [
+        {
+          "title": "GreatFire Vimeo measurement",
+          "url": "https://en.greatfire.org/vimeo.com"
+        }
+      ],
+      "domains": [
+        "vimeo.com",
+        "vimeocdn.com",
+        "vimeocdn.net"
+      ]
+    },
+    {
+      "id": "flickr",
+      "name": "Flickr",
+      "status": "confirmed_region_restricted",
+      "reason": "GreatFire's current measurement shows Flickr blocked from mainland China.",
+      "sources": [
+        {
+          "title": "GreatFire Flickr measurement",
+          "url": "https://en.greatfire.org/flickr.com"
+        }
+      ],
+      "domains": [
+        "flickr.com",
+        "staticflickr.com",
+        "flickr.net"
+      ]
+    },
+    {
+      "id": "medium",
+      "name": "Medium",
+      "status": "confirmed_region_restricted",
+      "reason": "GreatFire's current measurement shows Medium blocked from mainland China.",
+      "sources": [
+        {
+          "title": "GreatFire Medium measurement",
+          "url": "https://en.greatfire.org/medium.com"
+        }
+      ],
+      "domains": [
+        "medium.com",
+        "mediumcdn.com"
+      ]
+    },
+    {
+      "id": "dropbox",
+      "name": "Dropbox",
+      "status": "region_sensitive",
+      "reason": "GreatFire's current measurements show Dropbox endpoints are mostly blocked or unreliable, so it is included as region-sensitive.",
+      "sources": [
+        {
+          "title": "GreatFire Dropbox measurement",
+          "url": "https://en.greatfire.org/dropbox.com"
+        }
+      ],
+      "domains": [
+        "dropbox.com",
+        "dropboxapi.com",
+        "dropboxusercontent.com",
+        "dropboxstatic.com",
+        "dropbox-dns.com"
+      ]
+    },
+    {
+      "id": "box",
+      "name": "Box",
+      "status": "region_sensitive",
+      "reason": "GreatFire's current measurements are mixed, with many Box endpoints blocked or disrupted; it is included as region-sensitive.",
+      "sources": [
+        {
+          "title": "GreatFire Box measurement",
+          "url": "https://en.greatfire.org/box.com"
+        }
+      ],
+      "domains": [
+        "box.com",
+        "boxcdn.net"
+      ]
+    },
+    {
+      "id": "notion",
+      "name": "Notion",
+      "status": "region_sensitive",
+      "reason": "GreatFire's current measurements show Notion endpoints can be blocked or disrupted, so it is included as region-sensitive.",
+      "sources": [
+        {
+          "title": "GreatFire Notion measurement",
+          "url": "https://en.greatfire.org/notion.so"
+        }
+      ],
+      "domains": [
+        "notion.so",
+        "notion.site",
+        "notion-static.com",
+        "notionusercontent.com"
+      ]
+    },
+    {
+      "id": "steam-community",
+      "name": "Steam Community",
+      "status": "confirmed_region_restricted",
+      "reason": "GreatFire's current measurement shows Steam Community blocked from mainland China. This group targets the community and user-content surfaces, not the Steam Store as a whole.",
+      "sources": [
+        {
+          "title": "GreatFire Steam Community measurement",
+          "url": "https://en.greatfire.org/steamcommunity.com"
+        }
+      ],
+      "domains": [
+        "steamcommunity.com",
+        "steamusercontent.com",
+        "steamstatic.com",
+        "steamcontent.com"
       ]
     }
   ]
