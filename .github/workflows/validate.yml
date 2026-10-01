@@ -21,4 +21,5 @@ jobs:
       - name: Build and validate outputs
         run: |
           python scripts/build_rules.py
-          python -m json.tool public/v2rayn/custom_routing_rules.json > /dev/null
+          python -m json.tool public/v2rayn/routingrules_hk.json > /dev/null
+          python -m json.tool public/v2rayn/routingrules_cn.json > /dev/null

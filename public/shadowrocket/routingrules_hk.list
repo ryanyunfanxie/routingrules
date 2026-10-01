@@ -1,6 +1,6 @@
-# hk-restricted-services
+# Hong Kong selective service routing rules
 # Selective rules: only matched services use the proxy.
-# Generated from config/services.json; checked 2026-10-01.
+# Generated from config/services_hk.json; checked 2026-10-02.
 # Set the policy name below to the policy/group name in Shadowrocket.
 
 # OpenAI / ChatGPT / API

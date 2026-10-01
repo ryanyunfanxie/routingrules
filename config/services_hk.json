@@ -1,16 +1,18 @@
 {
-  "name": "hk-restricted-services",
-  "slug": "hk-restricted-services",
+  "name": "routingrules_hk",
+  "display_name": "Hong Kong selective service routing rules",
+  "slug": "routingrules_hk",
+  "region": "hk",
   "description": "Selective routing for services unavailable or region-sensitive from Hong Kong egress",
   "schema_version": 1,
-  "last_checked": "2026-10-01",
+  "last_checked": "2026-10-02",
   "shadowrocket_policy": "PROXY",
   "v2rayn_outbound_tag": "proxy",
   "services": [
     {
       "id": "openai",
       "name": "OpenAI / ChatGPT / API",
-      "status": "confirmed_hk_unsupported",
+      "status": "confirmed_region_restricted",
       "reason": "OpenAI's official ChatGPT and API support lists do not include Hong Kong.",
       "sources": [
         {
@@ -40,7 +42,7 @@
     {
       "id": "anthropic",
       "name": "Anthropic / Claude / Claude API",
-      "status": "confirmed_hk_unsupported",
+      "status": "confirmed_region_restricted",
       "reason": "Anthropic's official Claude availability list does not include Hong Kong.",
       "sources": [
         {
@@ -62,7 +64,7 @@
     {
       "id": "google-ai-studio",
       "name": "Google AI Studio / Gemini API",
-      "status": "confirmed_hk_unsupported",
+      "status": "confirmed_region_restricted",
       "reason": "Google's official available-regions list for AI Studio and Gemini API does not include Hong Kong; the Gemini web app has a separate country list.",
       "sources": [
         {

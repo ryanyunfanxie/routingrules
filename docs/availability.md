@@ -1,6 +1,40 @@
-# 香港可用性核查（2026-10-01）
+# 区域可用性核查（2026-10-02）
 
 这份核查优先使用服务商官方地区页面，并把“确定不支持”和“区域敏感但证据冲突”分开记录。地区支持是账户、付款、IP 出口和具体产品共同决定的；“某个云区域没有该产品”不等价于“香港用户不能访问该产品”。
+
+## 中国大陆版纳入默认代理规则
+
+大陆版使用独立源配置 [`config/services_cn.json`](../config/services_cn.json)，目标是中国大陆网络出口。它不仅处理服务商账户地区限制，也处理大陆网络层面的明确阻断；因此和香港版不是同一份域名清单。
+
+### AI 服务
+
+OpenAI、Anthropic/Claude 和 Google AI Studio/Gemini API 的官方支持地区不包含中国大陆，分别纳入 ChatGPT/API、Claude/API 和 Gemini 相关域名。Google 的 AI Studio 页面明确要求请求来自支持地区，Google AI Developers Forum 也直接回复中国大陆当前不可用。
+
+- [OpenAI ChatGPT 支持地区](https://help.openai.com/en/articles/7947663-chatgpt-supported-countries)
+- [OpenAI API 支持地区](https://help.openai.com/en/articles/5347006-openai-api-supported-countries-and-territories)
+- [Anthropic Claude 支持地区](https://support.claude.com/en/articles/8461763-where-can-i-access-claude)
+- [Google AI Studio / Gemini API 可用地区](https://ai.google.dev/gemini-api/docs/available-regions)
+- [Google AI Developers Forum：中国大陆可用性](https://discuss.ai.google.dev/t/a-request-for-help-from-chinese-mainland/178323/2)
+
+### 国际平台
+
+大陆版还纳入 YouTube、TikTok、Facebook、Instagram、Threads、X/Twitter、Telegram、WhatsApp、Discord、Reddit 和 Wikipedia/Wikimedia。GreatFire 的实时测量显示，Google、YouTube、Facebook、Instagram、TikTok、Telegram、WhatsApp、Discord 等域名在大陆存在明确阻断；不同子域和时间点可能表现为 blocked、intermittent 或 unresolvable，因此规则只覆盖这些平台的常用主域、API、媒体和 CDN 域名。
+
+- [GreatFire 当前趋势和大陆测量](https://en.greatfire.org/trends)
+- [GreatFire blocked lists](https://en.greatfire.org/blocked)
+- [Facebook 测量](https://en.greatfire.org/domain/facebook.com)
+- [Instagram 测量](https://en.greatfire.org/domain/instagram.com)
+- [TikTok 测量](https://en.greatfire.org/Tiktok.com)
+- [YouTube 测量](https://en.greatfire.org/youtube.com%3A443)
+- [Telegram 测量](https://en.greatfire.org/domain/t.me)
+- [WhatsApp 测量](https://en.greatfire.org/domain/whatsapp.com)
+- [Discord 测量](https://en.greatfire.org/domain/discord.com)
+
+TikTok 规则针对国际 TikTok，不是抖音；配置中没有把 `pstatp.com`、`snssdk.com` 等可能与抖音共享的通用 ByteDance 域名加入大陆版，以减少把国内应用流量误送进代理。
+
+## 大陆版暂不纳入的服务
+
+GitHub、GitLab、Cursor、Azure OpenAI、Amazon Bedrock、Google Vertex AI、Hugging Face、OpenRouter、Perplexity 等没有被整体加入大陆版。原因是它们可能只是部分 API、模型、账号、线路或云区域受限，并不能证明所有大陆用户都需要代理整个服务；后续如有具体访问失败域名，可以单独补充。
 
 ## 纳入默认代理规则
 
@@ -39,7 +73,7 @@ Google 的 AI Studio/Gemini API 可用地区页面列出支持的国家和地区
 
 TikTok 不能像 OpenAI、Claude 那样简单标记为“香港确定不可用”：TikTok 在 2020 年公开表示将退出香港并停止当地 App 运营；但后来又有官方公告说明 TikTok 在 App Store 和 Google Play 上可用，TikTok 的商业验证/广告体系也把香港列为部分业务市场。不同产品线、应用商店区域和账号状态可能产生不同结果。
 
-因此默认规则仍然纳入 TikTok 及常见 ByteDance CDN/API 域名，但在清单中标记为 `region_sensitive`。如果你在香港直连 TikTok 已经稳定可用，可以从 `config/services.json` 移除该服务后重新生成，避免不必要的代理流量。
+因此默认规则仍然纳入 TikTok 及常见 ByteDance CDN/API 域名，但在清单中标记为 `region_sensitive`。如果你在香港直连 TikTok 已经稳定可用，可以从 `config/services_hk.json` 移除该服务后重新生成，避免不必要的代理流量。
 
 - [TikTok 退出香港的报道及公司声明](https://www.axios.com/2020/07/07/tiktok-to-pull-out-of-hong-kong)
 - [TikTok 官方：App Store 和 Google Play 可用](https://newsroom.tiktok.com/tiktok-is-now-available-on-the-app-store-and-play-store?lang=en&pubDate=20250214)
@@ -73,7 +107,7 @@ TikTok 不能像 OpenAI、Claude 那样简单标记为“香港确定不可用�
 2. 未匹配流量由客户端现有配置保持直连。
 3. 规则文件是公开的域名清单，不包含节点、账号、密码、token 或认证代理。
 4. 如果某服务只在登录阶段失败，可能还需要客户端对其统一身份认证域名单独处理；本项目不把整个 `accounts.google.com` 等公共登录域名加入默认列表，以免把大量无关 Google 流量送进代理。
-5. `region_sensitive` 表示证据混合或产品线之间存在差异，属于可操作的候选项；它不等于服务商已经明确宣布“香港全面不可用”。
+5. `confirmed_region_restricted` 是跨地区通用的确定性限制标签；`region_sensitive` 表示证据混合或产品线之间存在差异，属于可操作的候选项；`user_provided_operational` 表示根据用户提供的实际端点纳入，不能等同于服务商已公开确认地区限制。
 
 ## 与外部清单的差异
 

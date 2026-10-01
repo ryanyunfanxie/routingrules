@@ -1,135 +1,482 @@
 {
-  "name": "hk-restricted-services",
-  "slug": "hk-restricted-services",
-  "last_checked": "2026-10-01",
-  "services": [
+  "rulesets": [
     {
-      "id": "openai",
-      "name": "OpenAI / ChatGPT / API",
-      "status": "confirmed_hk_unsupported",
-      "reason": "OpenAI's official ChatGPT and API support lists do not include Hong Kong.",
-      "sources": [
+      "name": "routingrules_hk",
+      "display_name": "Hong Kong selective service routing rules",
+      "slug": "routingrules_hk",
+      "region": "hk",
+      "description": "Selective routing for services unavailable or region-sensitive from Hong Kong egress",
+      "last_checked": "2026-10-02",
+      "services": [
         {
-          "title": "ChatGPT Supported Countries",
-          "url": "https://help.openai.com/en/articles/7947663-chatgpt-supported-countries"
+          "id": "openai",
+          "name": "OpenAI / ChatGPT / API",
+          "status": "confirmed_region_restricted",
+          "reason": "OpenAI's official ChatGPT and API support lists do not include Hong Kong.",
+          "sources": [
+            {
+              "title": "ChatGPT Supported Countries",
+              "url": "https://help.openai.com/en/articles/7947663-chatgpt-supported-countries"
+            },
+            {
+              "title": "OpenAI API - Supported Countries and Territories",
+              "url": "https://help.openai.com/en/articles/5347006-openai-api-supported-countries-and-territories"
+            }
+          ],
+          "domains": [
+            "chatgpt.com",
+            "chat.openai.com",
+            "openai.com",
+            "api.openai.com",
+            "platform.openai.com",
+            "auth.openai.com",
+            "auth0.openai.com",
+            "oaistatic.com",
+            "oaiusercontent.com",
+            "oaistatsig.com",
+            "openaimerge.com",
+            "cdn.openai.com"
+          ]
         },
         {
-          "title": "OpenAI API - Supported Countries and Territories",
-          "url": "https://help.openai.com/en/articles/5347006-openai-api-supported-countries-and-territories"
+          "id": "anthropic",
+          "name": "Anthropic / Claude / Claude API",
+          "status": "confirmed_region_restricted",
+          "reason": "Anthropic's official Claude availability list does not include Hong Kong.",
+          "sources": [
+            {
+              "title": "Where can I access Claude?",
+              "url": "https://support.claude.com/en/articles/8461763-where-can-i-access-claude"
+            }
+          ],
+          "domains": [
+            "claude.ai",
+            "claude.com",
+            "api.anthropic.com",
+            "console.anthropic.com",
+            "anthropic.com",
+            "claudeusercontent.com",
+            "claudemcpcontent.com",
+            "claude.app"
+          ]
+        },
+        {
+          "id": "google-ai-studio",
+          "name": "Google AI Studio / Gemini API",
+          "status": "confirmed_region_restricted",
+          "reason": "Google's official available-regions list for AI Studio and Gemini API does not include Hong Kong; the Gemini web app has a separate country list.",
+          "sources": [
+            {
+              "title": "Available regions for Google AI Studio and Gemini API",
+              "url": "https://ai.google.dev/gemini-api/docs/available-regions"
+            },
+            {
+              "title": "Where you can use the Gemini web app",
+              "url": "https://support.google.com/gemini/answer/13575153"
+            }
+          ],
+          "domains": [
+            "aistudio.google.com",
+            "generativelanguage.googleapis.com",
+            "makersuite.google.com"
+          ]
+        },
+        {
+          "id": "google-antigravity",
+          "name": "Google Antigravity / Cloud Code endpoints",
+          "status": "user_provided_operational",
+          "reason": "Added from the supplied developer endpoint list. Google documents Antigravity and Cloud Code, but I did not find an official Hong Kong country-availability statement for these endpoints.",
+          "sources": [
+            {
+              "title": "Google Antigravity download and product site",
+              "url": "https://antigravity.google/download"
+            },
+            {
+              "title": "Cloud Code overview",
+              "url": "https://docs.cloud.google.com/code/docs/vscode/overview"
+            }
+          ],
+          "domains": [
+            "antigravity.google",
+            "cloudcode-pa.googleapis.com",
+            "daily-cloudcode-pa.googleapis.com",
+            "canary-cloudcode-pa.googleapis.com"
+          ]
+        },
+        {
+          "id": "tiktok",
+          "name": "TikTok / ByteDance delivery services",
+          "status": "region_sensitive",
+          "reason": "TikTok announced a Hong Kong app withdrawal in 2020, while current app-store and business-service evidence is mixed. It is included as a region-sensitive candidate for Hong Kong egress rather than a uniformly confirmed block.",
+          "sources": [
+            {
+              "title": "TikTok statement on leaving Hong Kong",
+              "url": "https://www.axios.com/2020/07/07/tiktok-to-pull-out-of-hong-kong"
+            },
+            {
+              "title": "TikTok is now available on the App Store and Google Play",
+              "url": "https://newsroom.tiktok.com/tiktok-is-now-available-on-the-app-store-and-play-store?lang=en&pubDate=20250214"
+            },
+            {
+              "title": "TikTok Ads placements and available locations",
+              "url": "https://ads.tiktok.com/resources/help/article/placements-available-locations"
+            }
+          ],
+          "domains": [
+            "tiktok.com",
+            "tiktokv.com",
+            "tiktokcdn.com",
+            "tiktokcdn-us.com",
+            "byteoversea.com",
+            "ibytedtos.com",
+            "byteimg.com",
+            "muscdn.com",
+            "pstatp.com",
+            "snssdk.com"
+          ]
         }
-      ],
-      "domains": [
-        "chatgpt.com",
-        "chat.openai.com",
-        "openai.com",
-        "api.openai.com",
-        "platform.openai.com",
-        "auth.openai.com",
-        "auth0.openai.com",
-        "oaistatic.com",
-        "oaiusercontent.com",
-        "oaistatsig.com",
-        "openaimerge.com",
-        "cdn.openai.com"
       ]
     },
     {
-      "id": "anthropic",
-      "name": "Anthropic / Claude / Claude API",
-      "status": "confirmed_hk_unsupported",
-      "reason": "Anthropic's official Claude availability list does not include Hong Kong.",
-      "sources": [
+      "name": "routingrules_cn",
+      "display_name": "Mainland China selective service routing rules",
+      "slug": "routingrules_cn",
+      "region": "cn",
+      "description": "Selective routing for services restricted or unavailable from mainland China egress",
+      "last_checked": "2026-10-02",
+      "services": [
         {
-          "title": "Where can I access Claude?",
-          "url": "https://support.claude.com/en/articles/8461763-where-can-i-access-claude"
-        }
-      ],
-      "domains": [
-        "claude.ai",
-        "claude.com",
-        "api.anthropic.com",
-        "console.anthropic.com",
-        "anthropic.com",
-        "claudeusercontent.com",
-        "claudemcpcontent.com",
-        "claude.app"
-      ]
-    },
-    {
-      "id": "google-ai-studio",
-      "name": "Google AI Studio / Gemini API",
-      "status": "confirmed_hk_unsupported",
-      "reason": "Google's official available-regions list for AI Studio and Gemini API does not include Hong Kong; the Gemini web app has a separate country list.",
-      "sources": [
-        {
-          "title": "Available regions for Google AI Studio and Gemini API",
-          "url": "https://ai.google.dev/gemini-api/docs/available-regions"
+          "id": "openai",
+          "name": "OpenAI / ChatGPT / API",
+          "status": "confirmed_region_restricted",
+          "reason": "OpenAI's official ChatGPT and API support lists do not include mainland China, and OpenAI warns that access from unsupported locations may lead to account suspension.",
+          "sources": [
+            {
+              "title": "ChatGPT Supported Countries",
+              "url": "https://help.openai.com/en/articles/7947663-chatgpt-supported-countries"
+            },
+            {
+              "title": "OpenAI API - Supported Countries and Territories",
+              "url": "https://help.openai.com/en/articles/5347006-openai-api-supported-countries-and-territories"
+            }
+          ],
+          "domains": [
+            "chatgpt.com",
+            "chat.openai.com",
+            "openai.com",
+            "api.openai.com",
+            "platform.openai.com",
+            "auth.openai.com",
+            "auth0.openai.com",
+            "oaistatic.com",
+            "oaiusercontent.com",
+            "oaistatsig.com",
+            "openaimerge.com",
+            "cdn.openai.com"
+          ]
         },
         {
-          "title": "Where you can use the Gemini web app",
-          "url": "https://support.google.com/gemini/answer/13575153"
-        }
-      ],
-      "domains": [
-        "aistudio.google.com",
-        "generativelanguage.googleapis.com",
-        "makersuite.google.com"
-      ]
-    },
-    {
-      "id": "google-antigravity",
-      "name": "Google Antigravity / Cloud Code endpoints",
-      "status": "user_provided_operational",
-      "reason": "Added from the supplied developer endpoint list. Google documents Antigravity and Cloud Code, but I did not find an official Hong Kong country-availability statement for these endpoints.",
-      "sources": [
-        {
-          "title": "Google Antigravity download and product site",
-          "url": "https://antigravity.google/download"
+          "id": "anthropic",
+          "name": "Anthropic / Claude / Claude API",
+          "status": "confirmed_region_restricted",
+          "reason": "Anthropic's official Claude availability list does not include mainland China.",
+          "sources": [
+            {
+              "title": "Where can I access Claude?",
+              "url": "https://support.claude.com/en/articles/8461763-where-can-i-access-claude"
+            }
+          ],
+          "domains": [
+            "claude.ai",
+            "claude.com",
+            "api.anthropic.com",
+            "console.anthropic.com",
+            "anthropic.com",
+            "claudeusercontent.com",
+            "claudemcpcontent.com",
+            "claude.app"
+          ]
         },
         {
-          "title": "Cloud Code overview",
-          "url": "https://docs.cloud.google.com/code/docs/vscode/overview"
-        }
-      ],
-      "domains": [
-        "antigravity.google",
-        "cloudcode-pa.googleapis.com",
-        "daily-cloudcode-pa.googleapis.com",
-        "canary-cloudcode-pa.googleapis.com"
-      ]
-    },
-    {
-      "id": "tiktok",
-      "name": "TikTok / ByteDance delivery services",
-      "status": "region_sensitive",
-      "reason": "TikTok announced a Hong Kong app withdrawal in 2020, while current app-store and business-service evidence is mixed. It is included as a region-sensitive candidate for Hong Kong egress rather than a uniformly confirmed block.",
-      "sources": [
-        {
-          "title": "TikTok statement on leaving Hong Kong",
-          "url": "https://www.axios.com/2020/07/07/tiktok-to-pull-out-of-hong-kong"
+          "id": "google-ai",
+          "name": "Google AI Studio / Gemini / Gemini API",
+          "status": "confirmed_region_restricted",
+          "reason": "Google's official AI Studio and Gemini API available-regions list does not include mainland China; the Gemini web product is also not a mainland-supported Google service.",
+          "sources": [
+            {
+              "title": "Available regions for Google AI Studio and Gemini API",
+              "url": "https://ai.google.dev/gemini-api/docs/available-regions"
+            },
+            {
+              "title": "Google AI Developers Forum: mainland China availability",
+              "url": "https://discuss.ai.google.dev/t/a-request-for-help-from-chinese-mainland/178323/2"
+            }
+          ],
+          "domains": [
+            "aistudio.google.com",
+            "generativelanguage.googleapis.com",
+            "makersuite.google.com",
+            "gemini.google.com",
+            "ai.google.dev"
+          ]
         },
         {
-          "title": "TikTok is now available on the App Store and Google Play",
-          "url": "https://newsroom.tiktok.com/tiktok-is-now-available-on-the-app-store-and-play-store?lang=en&pubDate=20250214"
+          "id": "google-antigravity",
+          "name": "Google Antigravity / Cloud Code endpoints",
+          "status": "confirmed_region_restricted",
+          "reason": "These endpoints came from the supplied developer endpoint list and sit in Google's international developer service surface; the mainland rule includes them because the surrounding Google service surface is restricted from mainland China.",
+          "sources": [
+            {
+              "title": "Google Antigravity download and product site",
+              "url": "https://antigravity.google/download"
+            },
+            {
+              "title": "Cloud Code overview",
+              "url": "https://docs.cloud.google.com/code/docs/vscode/overview"
+            },
+            {
+              "title": "GreatFire blocked-site trends",
+              "url": "https://en.greatfire.org/trends"
+            }
+          ],
+          "domains": [
+            "antigravity.google",
+            "cloudcode-pa.googleapis.com",
+            "daily-cloudcode-pa.googleapis.com",
+            "canary-cloudcode-pa.googleapis.com"
+          ]
         },
         {
-          "title": "TikTok Ads placements and available locations",
-          "url": "https://ads.tiktok.com/resources/help/article/placements-available-locations"
+          "id": "google-services",
+          "name": "Google Search / Gmail / Google services",
+          "status": "confirmed_region_restricted",
+          "reason": "GreatFire's current mainland measurements list Google among the most-blocked domains. Only common Google service domains are included; this is not a blanket rule for every Google-owned hostname.",
+          "sources": [
+            {
+              "title": "GreatFire blocked-site trends",
+              "url": "https://en.greatfire.org/trends"
+            },
+            {
+              "title": "GreatFire blocked lists",
+              "url": "https://en.greatfire.org/blocked"
+            }
+          ],
+          "domains": [
+            "google.com",
+            "google.com.hk",
+            "gstatic.com",
+            "googleusercontent.com",
+            "gmail.com",
+            "accounts.google.com"
+          ]
+        },
+        {
+          "id": "youtube",
+          "name": "YouTube",
+          "status": "confirmed_region_restricted",
+          "reason": "GreatFire measurements show YouTube and its short-link domain blocked from mainland China; the CDN and player domains are included for app playback.",
+          "sources": [
+            {
+              "title": "GreatFire YouTube measurement",
+              "url": "https://en.greatfire.org/youtube.com%3A443"
+            },
+            {
+              "title": "GreatFire YouTube short-link measurement",
+              "url": "https://en.greatfire.org/domain/youtu.be"
+            }
+          ],
+          "domains": [
+            "youtube.com",
+            "youtu.be",
+            "youtube-nocookie.com",
+            "youtubei.googleapis.com",
+            "youtube.googleapis.com",
+            "googlevideo.com",
+            "ytimg.com",
+            "yt3.ggpht.com",
+            "youtube.com.hk"
+          ]
+        },
+        {
+          "id": "tiktok",
+          "name": "TikTok / ByteDance international services",
+          "status": "confirmed_region_restricted",
+          "reason": "GreatFire's current measurements show TikTok and TikTok CDN domains blocked in mainland China. This targets the international TikTok service, not Douyin.",
+          "sources": [
+            {
+              "title": "GreatFire TikTok measurement",
+              "url": "https://en.greatfire.org/Tiktok.com"
+            },
+            {
+              "title": "GreatFire TikTok CDN measurement",
+              "url": "https://en.greatfire.org/domain/tiktokcdn-us.com"
+            }
+          ],
+          "domains": [
+            "tiktok.com",
+            "tiktokv.com",
+            "tiktokcdn.com",
+            "tiktokcdn-us.com",
+            "byteoversea.com",
+            "ibytedtos.com",
+            "muscdn.com"
+          ]
+        },
+        {
+          "id": "meta-social",
+          "name": "Facebook / Instagram / Threads",
+          "status": "confirmed_region_restricted",
+          "reason": "GreatFire measurements show Facebook and Instagram blocked in mainland China. Meta CDN and Threads domains are included for app loading and media delivery.",
+          "sources": [
+            {
+              "title": "GreatFire Facebook measurement",
+              "url": "https://en.greatfire.org/domain/facebook.com"
+            },
+            {
+              "title": "GreatFire Instagram measurement",
+              "url": "https://en.greatfire.org/domain/instagram.com"
+            }
+          ],
+          "domains": [
+            "facebook.com",
+            "facebook.net",
+            "fbcdn.net",
+            "fbsbx.com",
+            "instagram.com",
+            "cdninstagram.com",
+            "threads.net"
+          ]
+        },
+        {
+          "id": "x-twitter",
+          "name": "X / Twitter",
+          "status": "confirmed_region_restricted",
+          "reason": "GreatFire's blocked-site data includes Twitter and X short links; X/Twitter web, media, and redirect domains are included.",
+          "sources": [
+            {
+              "title": "GreatFire blocked lists",
+              "url": "https://en.greatfire.org/blocked"
+            },
+            {
+              "title": "GreatFire X short-link measurement",
+              "url": "https://en.greatfire.org/domain/x.co"
+            }
+          ],
+          "domains": [
+            "x.com",
+            "twitter.com",
+            "twimg.com",
+            "t.co",
+            "ads-twitter.com"
+          ]
+        },
+        {
+          "id": "telegram",
+          "name": "Telegram",
+          "status": "confirmed_region_restricted",
+          "reason": "GreatFire measurements show t.me blocked in mainland China; Telegram web, link, media, and CDN domains are included.",
+          "sources": [
+            {
+              "title": "GreatFire Telegram measurement",
+              "url": "https://en.greatfire.org/domain/t.me"
+            }
+          ],
+          "domains": [
+            "telegram.org",
+            "t.me",
+            "telegram.me",
+            "telegra.ph",
+            "telesco.pe",
+            "cdn-telegram.org"
+          ]
+        },
+        {
+          "id": "whatsapp",
+          "name": "WhatsApp",
+          "status": "confirmed_region_restricted",
+          "reason": "GreatFire measurements show WhatsApp and WhatsApp CDN domains mostly blocked in mainland China.",
+          "sources": [
+            {
+              "title": "GreatFire WhatsApp measurement",
+              "url": "https://en.greatfire.org/domain/whatsapp.com"
+            },
+            {
+              "title": "GreatFire WhatsApp CDN measurement",
+              "url": "https://en.greatfire.org/domain/whatsapp.net"
+            }
+          ],
+          "domains": [
+            "whatsapp.com",
+            "whatsapp.net",
+            "wa.me"
+          ]
+        },
+        {
+          "id": "discord",
+          "name": "Discord",
+          "status": "confirmed_region_restricted",
+          "reason": "GreatFire measurements show the Discord site and API mostly blocked in mainland China.",
+          "sources": [
+            {
+              "title": "GreatFire Discord measurement",
+              "url": "https://en.greatfire.org/domain/discord.com"
+            }
+          ],
+          "domains": [
+            "discord.com",
+            "discordapp.com",
+            "discordapp.net",
+            "discord.gg",
+            "discord.media",
+            "discordcdn.com"
+          ]
+        },
+        {
+          "id": "reddit",
+          "name": "Reddit",
+          "status": "confirmed_region_restricted",
+          "reason": "GreatFire measurements show Reddit's short-link domain mostly blocked in mainland China; the main, media, and static domains are included.",
+          "sources": [
+            {
+              "title": "GreatFire Reddit short-link measurement",
+              "url": "https://en.greatfire.org/domain/redd.it"
+            },
+            {
+              "title": "GreatFire blocked lists",
+              "url": "https://en.greatfire.org/blocked"
+            }
+          ],
+          "domains": [
+            "reddit.com",
+            "redd.it",
+            "redditmedia.com",
+            "redditstatic.com"
+          ]
+        },
+        {
+          "id": "wikipedia",
+          "name": "Wikipedia / Wikimedia",
+          "status": "confirmed_region_restricted",
+          "reason": "GreatFire measurements show Wikipedia and most Wikimedia domains blocked or disrupted in mainland China.",
+          "sources": [
+            {
+              "title": "GreatFire Wikimedia measurement",
+              "url": "https://en.greatfire.org/domain/wikimedia.org"
+            },
+            {
+              "title": "GreatFire blocked lists",
+              "url": "https://en.greatfire.org/blocked"
+            }
+          ],
+          "domains": [
+            "wikipedia.org",
+            "wikimedia.org",
+            "wikimediafoundation.org",
+            "mediawiki.org"
+          ]
         }
-      ],
-      "domains": [
-        "tiktok.com",
-        "tiktokv.com",
-        "tiktokcdn.com",
-        "tiktokcdn-us.com",
-        "byteoversea.com",
-        "ibytedtos.com",
-        "byteimg.com",
-        "muscdn.com",
-        "pstatp.com",
-        "snssdk.com"
       ]
     }
   ],
-  "generated_at_utc": "2026-10-01T15:52:23.364475+00:00"
+  "generated_at_utc": "2026-10-01T16:52:51.046782+00:00"
 }
