@@ -32,9 +32,9 @@ The build script reads `config/services_hk.json` and `config/services_cn.json`, 
 
 构建脚本读取 `config/services_hk.json` 和 `config/services_cn.json`，然后直接更新现有输出目录中的四个规则文件。
 
-- `shadowrocket/routingrules_hk.list` — Hong Kong Shadowrocket remote rule set / 香港版 Shadowrocket 远程规则集
+- `shadowrocket/routingrules_hk.conf` — Hong Kong Shadowrocket config / 香港版 Shadowrocket 配置
 - `v2rayn/routingrules_hk.json` — Hong Kong v2rayN custom routing JSON / 香港版 v2rayN 自定义路由 JSON
-- `shadowrocket/routingrules_cn.list` — mainland China Shadowrocket remote rule set / 大陆版 Shadowrocket 远程规则集
+- `shadowrocket/routingrules_cn.conf` — mainland China Shadowrocket config / 大陆版 Shadowrocket 配置
 - `v2rayn/routingrules_cn.json` — mainland China v2rayN custom routing JSON / 大陆版 v2rayN 自定义路由 JSON
 
 Configure your proxy node or outbound first, then import the matching rule file. The rules do not create a proxy connection by themselves.
@@ -44,15 +44,15 @@ Configure your proxy node or outbound first, then import the matching rule file.
 ## GitHub Pages subscription URLs / GitHub Pages 订阅 URL
 
 ```text
-https://ryanyunfanxie.github.io/routingrules/shadowrocket/routingrules_hk.list
+https://ryanyunfanxie.github.io/routingrules/shadowrocket/routingrules_hk.conf
 https://ryanyunfanxie.github.io/routingrules/v2rayn/routingrules_hk.json
-https://ryanyunfanxie.github.io/routingrules/shadowrocket/routingrules_cn.list
+https://ryanyunfanxie.github.io/routingrules/shadowrocket/routingrules_cn.conf
 https://ryanyunfanxie.github.io/routingrules/v2rayn/routingrules_cn.json
 ```
 
-Use the first two URLs in Hong Kong and the last two in mainland China. In Shadowrocket, add the matching `.list` file as a remote rule set. In v2rayN, import the matching `.json` file and make sure your `proxy`, `direct`, and `block` outbound tags use those names.
+Use the first two URLs in Hong Kong and the last two in mainland China. In Shadowrocket, import the matching `.conf` file as a complete configuration. In v2rayN, import the matching `.json` file and make sure your `proxy`, `direct`, and `block` outbound tags use those names.
 
-在香港网络使用前两条 URL，在大陆网络使用后两条 URL。Shadowrocket 中添加对应的 `.list` 文件为远程规则集；v2rayN 中导入对应的 `.json` 文件，并确认 `proxy`、`direct`、`block` 出站 tag 与文件一致。
+在香港网络使用前两条 URL，在大陆网络使用后两条 URL。Shadowrocket 中导入对应的 `.conf` 完整配置；v2rayN 中导入对应的 `.json` 文件，并确认 `proxy`、`direct`、`block` 出站 tag 与文件一致。
 
 If your actual proxy, direct, or block outbound tag is different, update `v2rayn_outbound_tag`, `v2rayn_direct_outbound_tag`, or `v2rayn_block_outbound_tag` in the corresponding regional configuration file and rebuild the rules.
 

@@ -19,58 +19,9 @@ MANIFESTS = (
 )
 DOMAIN_RE = re.compile(r"^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$")
 
-DISPLAY_NAME_ZH = {
-    "hk": "香港选择性服务路由规则",
-    "cn": "中国大陆白名单路由规则",
-}
 DESCRIPTION_ZH = {
     "hk": "针对从香港出口不可用或受地区限制的服务进行选择性路由",
     "cn": "中国大陆域名和 IP 直连，其余流量代理",
-}
-STATUS_ZH = {
-    "confirmed_region_restricted": "已确认地区受限",
-    "user_provided_operational": "用户提供的实际端点",
-    "region_sensitive": "区域敏感",
-}
-SERVICE_NAME_ZH = {
-    ("hk", "openai"): "OpenAI / ChatGPT / API",
-    ("hk", "anthropic"): "Anthropic / Claude / Claude API",
-    ("hk", "google-ai-studio"): "Google AI Studio / Gemini API",
-    ("hk", "google-antigravity"): "Google Antigravity / Cloud Code 端点",
-    ("hk", "tiktok"): "TikTok / ByteDance 传输服务",
-    ("cn", "openai"): "OpenAI / ChatGPT / API",
-    ("cn", "anthropic"): "Anthropic / Claude / Claude API",
-    ("cn", "google-ai"): "Google AI Studio / Gemini / Gemini API",
-    ("cn", "google-antigravity"): "Google Antigravity / Cloud Code 端点",
-    ("cn", "google-services"): "Google 搜索 / Gmail / Google 服务",
-    ("cn", "youtube"): "YouTube",
-    ("cn", "tiktok"): "TikTok / ByteDance 国际服务",
-    ("cn", "meta-social"): "Facebook / Instagram / Threads",
-    ("cn", "x-twitter"): "X / Twitter",
-    ("cn", "telegram"): "Telegram",
-    ("cn", "whatsapp"): "WhatsApp",
-    ("cn", "discord"): "Discord",
-    ("cn", "reddit"): "Reddit",
-    ("cn", "wikipedia"): "Wikipedia / Wikimedia",
-    ("cn", "netflix"): "Netflix",
-    ("cn", "disney-plus"): "Disney+",
-    ("cn", "max"): "Max / HBO Max",
-    ("cn", "prime-video"): "Amazon Prime Video",
-    ("cn", "twitch"): "Twitch",
-    ("cn", "spotify"): "Spotify",
-    ("cn", "soundcloud"): "SoundCloud",
-    ("cn", "pinterest"): "Pinterest",
-    ("cn", "snapchat"): "Snapchat",
-    ("cn", "tumblr"): "Tumblr",
-    ("cn", "line"): "LINE",
-    ("cn", "signal"): "Signal",
-    ("cn", "vimeo"): "Vimeo",
-    ("cn", "flickr"): "Flickr",
-    ("cn", "medium"): "Medium",
-    ("cn", "dropbox"): "Dropbox",
-    ("cn", "box"): "Box",
-    ("cn", "notion"): "Notion",
-    ("cn", "steam-community"): "Steam Community",
 }
 SHADOWROCKET_GEOSITE_DOMAINS = {
     "geosite:google": (
@@ -85,29 +36,6 @@ SHADOWROCKET_GEOSITE_DOMAINS = {
         "googlevideo.com",
     ),
 }
-REASON_ZH = {
-    ("hk", "openai"): "OpenAI 官方 ChatGPT 和 API 支持地区列表不包含香港。",
-    ("hk", "anthropic"): "Anthropic 官方 Claude 可用地区列表不包含香港。",
-    ("hk", "google-ai-studio"): "Google 官方 AI Studio 和 Gemini API 可用地区列表不包含香港；Gemini 网页版有独立的国家/地区名单。",
-    ("hk", "google-antigravity"): "该端点来自用户提供的开发者端点清单。Google 官方资料确认 Antigravity 和 Cloud Code 的产品定位，但没有找到这些端点专门针对香港的官方可用性说明。",
-    ("hk", "tiktok"): "TikTok 曾宣布退出香港，但当前应用商店和商业服务证据不一致，因此作为香港出口的区域敏感候选项纳入，而不是认定为统一不可用。",
-    ("cn", "openai"): "OpenAI 官方 ChatGPT 和 API 支持地区列表不包含中国大陆，且 OpenAI 警告从不支持地区访问可能导致账号暂停。",
-    ("cn", "anthropic"): "Anthropic 官方 Claude 可用地区列表不包含中国大陆。",
-    ("cn", "google-ai"): "Google 官方 AI Studio 和 Gemini API 可用地区列表不包含中国大陆；Gemini 网页版也不是中国大陆支持的 Google 服务。",
-    ("cn", "google-antigravity"): "该端点来自用户提供的开发者端点清单，属于 Google 国际开发者服务；由于相关 Google 服务在中国大陆受限，因此纳入大陆版规则。",
-    ("cn", "google-services"): "GreatFire 的当前大陆测量将 Google 列为高度受阻域名。这里只纳入常用 Google 服务域名，并非对所有 Google 主机名一概代理。",
-    ("cn", "youtube"): "GreatFire 测量显示 YouTube 及其短链接域名在中国大陆受阻；规则同时覆盖 CDN 和播放器域名以支持应用播放。",
-    ("cn", "tiktok"): "GreatFire 的当前测量显示 TikTok 及其 CDN 域名在中国大陆受阻；规则针对国际 TikTok，不针对抖音。",
-    ("cn", "meta-social"): "GreatFire 测量显示 Facebook 和 Instagram 在中国大陆受阻；规则同时覆盖 Meta CDN 和 Threads 域名以支持应用加载和媒体传输。",
-    ("cn", "x-twitter"): "GreatFire 的阻断数据包含 Twitter 和 X 短链接；规则覆盖 X/Twitter 网页、媒体和跳转域名。",
-    ("cn", "telegram"): "GreatFire 测量显示 t.me 在中国大陆受阻；规则覆盖 Telegram 网页、链接、媒体和 CDN 域名。",
-    ("cn", "whatsapp"): "GreatFire 测量显示 WhatsApp 及其 CDN 域名在中国大陆大多受阻。",
-    ("cn", "discord"): "GreatFire 测量显示 Discord 网站和 API 在中国大陆大多受阻。",
-    ("cn", "reddit"): "GreatFire 测量显示 Reddit 短链接域名在中国大陆大多受阻；规则覆盖主站、媒体和静态资源域名。",
-    ("cn", "wikipedia"): "GreatFire 测量显示 Wikipedia 和大部分 Wikimedia 域名在中国大陆受阻或受到干扰。",
-}
-
-
 def load_manifest(path: Path) -> dict:
     manifest = json.loads(path.read_text(encoding="utf-8"))
     if manifest.get("schema_version") != 1:
@@ -155,13 +83,58 @@ def json_dump(value: object, path: Path) -> None:
     )
 
 
+def shadowrocket_config_prefix() -> list[str]:
+    timestamp = dt.datetime.now(dt.timezone.utc).astimezone(
+        dt.timezone(dt.timedelta(hours=8))
+    ).strftime("%Y-%m-%d %H:%M:%S")
+    return [
+        f"# Shadowrocket: {timestamp}",
+        "[General]",
+        "bypass-system = true",
+        "skip-proxy = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, localhost, *.local, captive.apple.com",
+        "tun-excluded-routes = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24, 192.88.99.0/24, 192.168.0.0/16, 198.51.100.0/24, 203.0.113.0/24, 224.0.0.0/4, 255.255.255.255/32, 239.255.255.250/32",
+        "dns-server = system",
+        "fallback-dns-server = system",
+        "ipv6 = true",
+        "prefer-ipv6 = false",
+        "dns-direct-system = false",
+        "icmp-auto-reply = true",
+        "always-reject-url-rewrite = false",
+        "private-ip-answer = true",
+        "",
+        "# direct domain fail to resolve use proxy rule",
+        "dns-direct-fallback-proxy = true",
+        "",
+        "# The fallback behavior when UDP traffic matches a policy that doesn't support the UDP relay. Possible values: DIRECT, REJECT.",
+        "udp-policy-not-supported-behaviour = REJECT",
+        "",
+        "[Rule]",
+    ]
+
+
+def write_shadowrocket_config(rules: list[str], output: Path) -> None:
+    lines = shadowrocket_config_prefix()
+    lines.extend(rules)
+    lines.extend([
+        "",
+        "[Host]",
+        "localhost = 127.0.0.1",
+        "",
+        "[URL Rewrite]",
+        "'^https?://(www.)?g.cn' 'https://www.google.com' 302",
+        "'^https?://(www.)?google.cn' 'https://www.google.com' 302",
+    ])
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+
+
 def build_shadowrocket(manifest: dict, source: Path, output: Path) -> None:
     if manifest.get("routing_mode") == "mainland_whitelist":
         build_shadowrocket_mainland_whitelist(manifest, source, output)
         return
 
     policy = manifest["shadowrocket_policy"]
-    lines = [
+    rules = [
         f"# {manifest.get('display_name', manifest['name'])}",
         "# Selective rules: only matched services use the proxy.",
         f"# Generated from {source.relative_to(ROOT).as_posix()}; checked {manifest['last_checked']}.",
@@ -169,43 +142,50 @@ def build_shadowrocket(manifest: dict, source: Path, output: Path) -> None:
         "",
     ]
     for service in manifest["services"]:
-        lines.append(f"# {service['name']}")
-        lines.extend(f"DOMAIN-SUFFIX,{domain},{policy}" for domain in service["domains"])
-        lines.append("")
-    lines.extend([
+        rules.append(f"# {service['name']}")
+        rules.extend(f"DOMAIN-SUFFIX,{domain},{policy}" for domain in service["domains"])
+        rules.append("")
+    rules.extend([
         "# Default direct fallback / 默认直连兜底",
         "FINAL,DIRECT",
     ])
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    write_shadowrocket_config(rules, output)
 
 
 def build_shadowrocket_mainland_whitelist(manifest: dict, source: Path, output: Path) -> None:
     whitelist = manifest["mainland_whitelist"]
     direct = manifest.get("shadowrocket_direct_policy", "DIRECT")
     proxy = manifest["shadowrocket_policy"]
-    lines = [
+    rules = [
         f"# {manifest.get('display_name', manifest['name'])}",
         "# v2rayN-style Mainland China Whitelist: China traffic DIRECT, everything else PROXY.",
         f"# Generated from {source.relative_to(ROOT).as_posix()}; checked {manifest['last_checked']}.",
         "# This is a whitelist profile; it intentionally ends with a proxy fallback.",
         "",
+        "# Block HTTP3/QUIC",
     ]
     if whitelist.get("block_udp443"):
-        lines.append("AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT")
+        rules.append("AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT")
+    rules.append("")
+    rules.append("# Google")
     for domain_rule in whitelist.get("proxy_domains", []):
         domains = SHADOWROCKET_GEOSITE_DOMAINS.get(domain_rule, (domain_rule,))
         for domain in domains:
             if domain.startswith("geosite:"):
                 continue
-            lines.append(f"DOMAIN-SUFFIX,{domain},{proxy}")
-    lines.extend([
+            rules.append(f"DOMAIN-SUFFIX,{domain},{proxy}")
+    rules.extend([
+        "",
+        "# LAN",
         f"GEOIP,LAN,{direct}",
+        "",
+        "# China",
         f"GEOIP,CN,{direct}",
+        "",
+        "# Final",
         f"FINAL,{proxy}",
     ])
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    write_shadowrocket_config(rules, output)
 
 
 def build_v2rayn(manifest: dict, output: Path) -> None:
@@ -299,34 +279,27 @@ def build_index(manifests: list[dict], output: Path) -> None:
     sections = []
     for manifest in manifests:
         region = manifest["region"]
-        service_items = []
-        for service in manifest["services"]:
-            service_items.append(f"<li>{html.escape(service['name'])}</li>")
         slug = html.escape(manifest["slug"], quote=True)
-        display_name = manifest.get("display_name", manifest["name"])
-        display_name_zh = DISPLAY_NAME_ZH.get(region, display_name)
         description = manifest.get("description", "")
         description_zh = DESCRIPTION_ZH.get(region, description)
+        section_heading = html.escape(manifest["name"])
         sections.append(
-            f"""<h2>{html.escape(display_name)} / {html.escape(display_name_zh)}</h2>
+            f"""<h2>{section_heading}</h2>
 <p>{html.escape(description)}</p>
 <p>{html.escape(description_zh)}</p>
 <ul>
-<li><a href="shadowrocket/{slug}.list">Shadowrocket rule set / Shadowrocket 规则集</a></li>
-<li><a href="v2rayn/{slug}.json">v2rayN custom routing JSON / v2rayN 自定义路由 JSON</a></li>
+<li><a href="shadowrocket/{slug}.conf">Shadowrocket config / Shadowrocket 配置</a></li>
+<li><a href="v2rayn/{slug}.json">v2rayN rule set JSON / v2rayN 规则集 JSON</a></li>
 </ul>
-<h3>Sites / 站点</h3>
-<ul>{''.join(service_items)}</ul>"""
+"""
         )
     body = f"""<!doctype html>
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>routingrules / 区域选择性服务路由规则</title>
+<title>routingrules</title>
 <style>body{{font:16px system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}}p{{margin:.7rem 0}}ul{{padding-left:1.5rem}}li{{margin:.35rem 0}}code{{background:#f1f3f5;padding:.15rem .3rem;border-radius:.25rem}}li div+div{{margin-top:.1rem;color:#333}}a{{margin-right:.6rem}}</style>
-<h1>routingrules / 区域选择性服务路由规则</h1>
-<p>Regional routing profiles. Public, unauthenticated rule files; no node credentials or subscription tokens are included.</p>
-<p>区域路由配置。规则文件公开且无需认证，不包含代理节点凭据或订阅 token。</p>
+<h1>routingrules</h1>
 {''.join(sections)}
 </html>
 """
@@ -347,32 +320,9 @@ def main() -> None:
 
     for source, manifest in zip(MANIFESTS, manifests):
         slug = manifest["slug"]
-        build_shadowrocket(manifest, source, output / "shadowrocket" / f"{slug}.list")
+        build_shadowrocket(manifest, source, output / "shadowrocket" / f"{slug}.conf")
         build_v2rayn(manifest, output / "v2rayn" / f"{slug}.json")
     build_index(manifests, output / "index.html")
-    (output / "availability.json").write_text(
-        json.dumps(
-            {
-                "rulesets": [
-                    {
-                        "name": manifest["name"],
-                        "display_name": manifest.get("display_name", manifest["name"]),
-                        "slug": manifest["slug"],
-                        "region": manifest.get("region"),
-                        "description": manifest.get("description"),
-                        "last_checked": manifest["last_checked"],
-                        "services": manifest["services"],
-                    }
-                    for manifest in manifests
-                ],
-                "generated_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
-            },
-            ensure_ascii=False,
-            indent=2,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
 
 
 if __name__ == "__main__":
