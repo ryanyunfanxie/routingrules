@@ -301,11 +301,7 @@ def build_index(manifests: list[dict], output: Path) -> None:
         region = manifest["region"]
         service_items = []
         for service in manifest["services"]:
-            service_name_zh = SERVICE_NAME_ZH.get((region, service["id"]), service["name"])
-            service_items.append(
-                f"<li><div lang=\"en\">{html.escape(service['name'])}</div>"
-                f"<div lang=\"zh\">{html.escape(service_name_zh)}</div></li>"
-            )
+            service_items.append(f"<li>{html.escape(service['name'])}</li>")
         slug = html.escape(manifest["slug"], quote=True)
         display_name = manifest.get("display_name", manifest["name"])
         display_name_zh = DISPLAY_NAME_ZH.get(region, display_name)
