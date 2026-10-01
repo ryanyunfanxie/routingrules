@@ -75,5 +75,11 @@
       "domain:snssdk.com"
     ],
     "remarks": "TikTok / ByteDance delivery services"
+  },
+  {
+    "port": "0-65535",
+    "outboundTag": "direct",
+    "enabled": true,
+    "remarks": "Default direct / 默认直连"
   }
 ]

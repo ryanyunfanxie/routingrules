@@ -153,6 +153,14 @@ def build_v2rayn(manifest: dict, output: Path) -> None:
                 "remarks": service["name"],
             }
         )
+    rules.append(
+        {
+            "port": "0-65535",
+            "outboundTag": manifest.get("v2rayn_direct_outbound_tag", "direct"),
+            "enabled": True,
+            "remarks": "Default direct / 默认直连",
+        }
+    )
     json_dump(rules, output)
 
 

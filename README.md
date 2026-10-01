@@ -20,7 +20,7 @@ The rule files contain no proxy nodes, passwords, subscription tokens, or token-
 
 ## Generate custom rules / 生成自定义规则
 
-After customing rules in config/services_xx.json, run the following command from the repository root:
+After configuring your rules in config/services_xx.json, run the following command from the repository root:
 
 在config/services_xx.json自定义规则后，在仓库根目录运行以下命令：
 
@@ -54,13 +54,13 @@ Use the first two URLs in Hong Kong and the last two in mainland China. In Shado
 
 在香港网络使用前两条 URL，在大陆网络使用后两条 URL。Shadowrocket 中添加对应的 `.list` 文件为远程规则集，并将策略设为 `PROXY`；v2rayN 中导入对应的 `.json` 文件，并确认出站 tag 为 `proxy`。
 
-If your actual outbound tag is different, update `v2rayn_outbound_tag` in the corresponding regional configuration file and rebuild the rules.
+If your actual proxy or direct outbound tag is different, update `v2rayn_outbound_tag` or `v2rayn_direct_outbound_tag` in the corresponding regional configuration file and rebuild the rules.
 
-如果实际出站 tag 不同，请修改对应地区配置文件中的 `v2rayn_outbound_tag`，然后重新生成规则。
+如果实际的代理或直连出站 tag 不同，请修改对应地区配置文件中的 `v2rayn_outbound_tag` 或 `v2rayn_direct_outbound_tag`，然后重新生成规则。
 
-The v2rayN JSON format follows the [v2rayN custom routing rules documentation](https://github.com/2dust/v2rayn/wiki/Description-of-custom-routing-rules).
+The v2rayN JSON format follows the [v2rayN custom routing rules documentation](https://github.com/2dust/v2rayn/wiki/Description-of-custom-routing-rules). Each regional JSON is an independent routing profile at the same level as Global, Whitelist, and Blacklist; select only one active routing profile. The generated JSON ends with a full-port `direct` fallback, so only listed services use `proxy`.
 
-v2rayN JSON 格式依据 [v2rayN 自定义路由规则说明](https://github.com/2dust/v2rayn/wiki/Description-of-custom-routing-rules)。
+v2rayN JSON 格式依据 [v2rayN 自定义路由规则说明](https://github.com/2dust/v2rayn/wiki/Description-of-custom-routing-rules)。每个地区的 JSON 都是与 Global、Whitelist、Blacklist 同级的独立路由配置，只选择一个启用。生成的 JSON 最后包含全端口 `direct` 兜底，因此只有清单中的服务使用 `proxy`。
 
 ## Research scope and limitations / 研究范围与限制
 

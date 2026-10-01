@@ -8,6 +8,7 @@
   "last_checked": "2026-10-02",
   "shadowrocket_policy": "PROXY",
   "v2rayn_outbound_tag": "proxy",
+  "v2rayn_direct_outbound_tag": "direct",
   "services": [
     {
       "id": "openai",
