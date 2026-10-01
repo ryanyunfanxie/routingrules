@@ -299,7 +299,7 @@ def build_index(manifests: list[dict], output: Path) -> None:
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>routingrules</title>
 <style>body{{font:16px system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}}p{{margin:.7rem 0}}ul{{padding-left:1.5rem}}li{{margin:.35rem 0}}code{{background:#f1f3f5;padding:.15rem .3rem;border-radius:.25rem}}li div+div{{margin-top:.1rem;color:#333}}a{{margin-right:.6rem}}</style>
-<h1>routingrules</h1>
+<h1><a href="https://github.com/ryanyunfanxie/routingrules">routingrules</a></h1>
 {''.join(sections)}
 </html>
 """
