@@ -1,0 +1,135 @@
+{
+  "name": "hk-restricted-services",
+  "slug": "hk-restricted-services",
+  "last_checked": "2026-10-01",
+  "services": [
+    {
+      "id": "openai",
+      "name": "OpenAI / ChatGPT / API",
+      "status": "confirmed_hk_unsupported",
+      "reason": "OpenAI's official ChatGPT and API support lists do not include Hong Kong.",
+      "sources": [
+        {
+          "title": "ChatGPT Supported Countries",
+          "url": "https://help.openai.com/en/articles/7947663-chatgpt-supported-countries"
+        },
+        {
+          "title": "OpenAI API - Supported Countries and Territories",
+          "url": "https://help.openai.com/en/articles/5347006-openai-api-supported-countries-and-territories"
+        }
+      ],
+      "domains": [
+        "chatgpt.com",
+        "chat.openai.com",
+        "openai.com",
+        "api.openai.com",
+        "platform.openai.com",
+        "auth.openai.com",
+        "auth0.openai.com",
+        "oaistatic.com",
+        "oaiusercontent.com",
+        "oaistatsig.com",
+        "openaimerge.com",
+        "cdn.openai.com"
+      ]
+    },
+    {
+      "id": "anthropic",
+      "name": "Anthropic / Claude / Claude API",
+      "status": "confirmed_hk_unsupported",
+      "reason": "Anthropic's official Claude availability list does not include Hong Kong.",
+      "sources": [
+        {
+          "title": "Where can I access Claude?",
+          "url": "https://support.claude.com/en/articles/8461763-where-can-i-access-claude"
+        }
+      ],
+      "domains": [
+        "claude.ai",
+        "claude.com",
+        "api.anthropic.com",
+        "console.anthropic.com",
+        "anthropic.com",
+        "claudeusercontent.com",
+        "claudemcpcontent.com",
+        "claude.app"
+      ]
+    },
+    {
+      "id": "google-ai-studio",
+      "name": "Google AI Studio / Gemini API",
+      "status": "confirmed_hk_unsupported",
+      "reason": "Google's official available-regions list for AI Studio and Gemini API does not include Hong Kong; the Gemini web app has a separate country list.",
+      "sources": [
+        {
+          "title": "Available regions for Google AI Studio and Gemini API",
+          "url": "https://ai.google.dev/gemini-api/docs/available-regions"
+        },
+        {
+          "title": "Where you can use the Gemini web app",
+          "url": "https://support.google.com/gemini/answer/13575153"
+        }
+      ],
+      "domains": [
+        "aistudio.google.com",
+        "generativelanguage.googleapis.com",
+        "makersuite.google.com"
+      ]
+    },
+    {
+      "id": "google-antigravity",
+      "name": "Google Antigravity / Cloud Code endpoints",
+      "status": "user_provided_operational",
+      "reason": "Added from the supplied developer endpoint list. Google documents Antigravity and Cloud Code, but I did not find an official Hong Kong country-availability statement for these endpoints.",
+      "sources": [
+        {
+          "title": "Google Antigravity download and product site",
+          "url": "https://antigravity.google/download"
+        },
+        {
+          "title": "Cloud Code overview",
+          "url": "https://docs.cloud.google.com/code/docs/vscode/overview"
+        }
+      ],
+      "domains": [
+        "antigravity.google",
+        "cloudcode-pa.googleapis.com",
+        "daily-cloudcode-pa.googleapis.com",
+        "canary-cloudcode-pa.googleapis.com"
+      ]
+    },
+    {
+      "id": "tiktok",
+      "name": "TikTok / ByteDance delivery services",
+      "status": "region_sensitive",
+      "reason": "TikTok announced a Hong Kong app withdrawal in 2020, while current app-store and business-service evidence is mixed. It is included as a region-sensitive candidate for Hong Kong egress rather than a uniformly confirmed block.",
+      "sources": [
+        {
+          "title": "TikTok statement on leaving Hong Kong",
+          "url": "https://www.axios.com/2020/07/07/tiktok-to-pull-out-of-hong-kong"
+        },
+        {
+          "title": "TikTok is now available on the App Store and Google Play",
+          "url": "https://newsroom.tiktok.com/tiktok-is-now-available-on-the-app-store-and-play-store?lang=en&pubDate=20250214"
+        },
+        {
+          "title": "TikTok Ads placements and available locations",
+          "url": "https://ads.tiktok.com/resources/help/article/placements-available-locations"
+        }
+      ],
+      "domains": [
+        "tiktok.com",
+        "tiktokv.com",
+        "tiktokcdn.com",
+        "tiktokcdn-us.com",
+        "byteoversea.com",
+        "ibytedtos.com",
+        "byteimg.com",
+        "muscdn.com",
+        "pstatp.com",
+        "snssdk.com"
+      ]
+    }
+  ],
+  "generated_at_utc": "2026-10-01T15:52:23.364475+00:00"
+}

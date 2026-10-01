@@ -1,0 +1,51 @@
+# hk-restricted-services
+# Selective rules: only matched services use the proxy.
+# Generated from config/services.json; checked 2026-10-01.
+# Set the policy name below to the policy/group name in Shadowrocket.
+
+# OpenAI / ChatGPT / API
+DOMAIN-SUFFIX,chatgpt.com,PROXY
+DOMAIN-SUFFIX,chat.openai.com,PROXY
+DOMAIN-SUFFIX,openai.com,PROXY
+DOMAIN-SUFFIX,api.openai.com,PROXY
+DOMAIN-SUFFIX,platform.openai.com,PROXY
+DOMAIN-SUFFIX,auth.openai.com,PROXY
+DOMAIN-SUFFIX,auth0.openai.com,PROXY
+DOMAIN-SUFFIX,oaistatic.com,PROXY
+DOMAIN-SUFFIX,oaiusercontent.com,PROXY
+DOMAIN-SUFFIX,oaistatsig.com,PROXY
+DOMAIN-SUFFIX,openaimerge.com,PROXY
+DOMAIN-SUFFIX,cdn.openai.com,PROXY
+
+# Anthropic / Claude / Claude API
+DOMAIN-SUFFIX,claude.ai,PROXY
+DOMAIN-SUFFIX,claude.com,PROXY
+DOMAIN-SUFFIX,api.anthropic.com,PROXY
+DOMAIN-SUFFIX,console.anthropic.com,PROXY
+DOMAIN-SUFFIX,anthropic.com,PROXY
+DOMAIN-SUFFIX,claudeusercontent.com,PROXY
+DOMAIN-SUFFIX,claudemcpcontent.com,PROXY
+DOMAIN-SUFFIX,claude.app,PROXY
+
+# Google AI Studio / Gemini API
+DOMAIN-SUFFIX,aistudio.google.com,PROXY
+DOMAIN-SUFFIX,generativelanguage.googleapis.com,PROXY
+DOMAIN-SUFFIX,makersuite.google.com,PROXY
+
+# Google Antigravity / Cloud Code endpoints
+DOMAIN-SUFFIX,antigravity.google,PROXY
+DOMAIN-SUFFIX,cloudcode-pa.googleapis.com,PROXY
+DOMAIN-SUFFIX,daily-cloudcode-pa.googleapis.com,PROXY
+DOMAIN-SUFFIX,canary-cloudcode-pa.googleapis.com,PROXY
+
+# TikTok / ByteDance delivery services
+DOMAIN-SUFFIX,tiktok.com,PROXY
+DOMAIN-SUFFIX,tiktokv.com,PROXY
+DOMAIN-SUFFIX,tiktokcdn.com,PROXY
+DOMAIN-SUFFIX,tiktokcdn-us.com,PROXY
+DOMAIN-SUFFIX,byteoversea.com,PROXY
+DOMAIN-SUFFIX,ibytedtos.com,PROXY
+DOMAIN-SUFFIX,byteimg.com,PROXY
+DOMAIN-SUFFIX,muscdn.com,PROXY
+DOMAIN-SUFFIX,pstatp.com,PROXY
+DOMAIN-SUFFIX,snssdk.com,PROXY

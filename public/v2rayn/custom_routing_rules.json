@@ -1,0 +1,79 @@
+[
+  {
+    "port": "",
+    "outboundTag": "proxy",
+    "enabled": true,
+    "domain": [
+      "domain:chatgpt.com",
+      "domain:chat.openai.com",
+      "domain:openai.com",
+      "domain:api.openai.com",
+      "domain:platform.openai.com",
+      "domain:auth.openai.com",
+      "domain:auth0.openai.com",
+      "domain:oaistatic.com",
+      "domain:oaiusercontent.com",
+      "domain:oaistatsig.com",
+      "domain:openaimerge.com",
+      "domain:cdn.openai.com"
+    ],
+    "remarks": "OpenAI / ChatGPT / API"
+  },
+  {
+    "port": "",
+    "outboundTag": "proxy",
+    "enabled": true,
+    "domain": [
+      "domain:claude.ai",
+      "domain:claude.com",
+      "domain:api.anthropic.com",
+      "domain:console.anthropic.com",
+      "domain:anthropic.com",
+      "domain:claudeusercontent.com",
+      "domain:claudemcpcontent.com",
+      "domain:claude.app"
+    ],
+    "remarks": "Anthropic / Claude / Claude API"
+  },
+  {
+    "port": "",
+    "outboundTag": "proxy",
+    "enabled": true,
+    "domain": [
+      "domain:aistudio.google.com",
+      "domain:generativelanguage.googleapis.com",
+      "domain:makersuite.google.com"
+    ],
+    "remarks": "Google AI Studio / Gemini API"
+  },
+  {
+    "port": "",
+    "outboundTag": "proxy",
+    "enabled": true,
+    "domain": [
+      "domain:antigravity.google",
+      "domain:cloudcode-pa.googleapis.com",
+      "domain:daily-cloudcode-pa.googleapis.com",
+      "domain:canary-cloudcode-pa.googleapis.com"
+    ],
+    "remarks": "Google Antigravity / Cloud Code endpoints"
+  },
+  {
+    "port": "",
+    "outboundTag": "proxy",
+    "enabled": true,
+    "domain": [
+      "domain:tiktok.com",
+      "domain:tiktokv.com",
+      "domain:tiktokcdn.com",
+      "domain:tiktokcdn-us.com",
+      "domain:byteoversea.com",
+      "domain:ibytedtos.com",
+      "domain:byteimg.com",
+      "domain:muscdn.com",
+      "domain:pstatp.com",
+      "domain:snssdk.com"
+    ],
+    "remarks": "TikTok / ByteDance delivery services"
+  }
+]
