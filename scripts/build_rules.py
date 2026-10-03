@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build client-specific selective routing rules from both regional manifests."""
+"""Build Shadowrocket, v2rayN, and Clash/Mihomo rules from both regional manifests."""
 
 from __future__ import annotations
 
@@ -275,6 +275,53 @@ def build_v2rayn_mainland_whitelist(manifest: dict, output: Path) -> None:
     json_dump(rules, output)
 
 
+def write_clash_rule_provider(rules: list[str], output: Path) -> None:
+    lines = [
+        "# Clash/Mihomo classical rule provider; attach with RULE-SET",
+        "payload:",
+        *(f"  - {rule}" for rule in rules),
+    ]
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def build_clash(manifest: dict, output: Path) -> None:
+    if manifest.get("routing_mode") == "mainland_whitelist":
+        build_clash_mainland_whitelist(manifest, output)
+        return
+
+    rules = []
+    for service in manifest["services"]:
+        rules.extend(
+            f"DOMAIN-SUFFIX,{domain}" for domain in service["domains"]
+        )
+    write_clash_rule_provider(rules, output)
+
+
+def build_clash_mainland_whitelist(manifest: dict, output: Path) -> None:
+    whitelist = manifest["mainland_whitelist"]
+    rules = []
+
+    for ip_rule in whitelist.get("direct_ip", []):
+        if ip_rule == "geoip:private":
+            rules.append("GEOIP,LAN")
+        elif ip_rule == "geoip:cn":
+            rules.append("GEOIP,CN")
+        elif ":" in ip_rule:
+            rules.append(f"IP-CIDR6,{ip_rule}/128,no-resolve")
+        else:
+            rules.append(f"IP-CIDR,{ip_rule}/32,no-resolve")
+
+    for domain_rule in whitelist.get("direct_domain", []):
+        if domain_rule.startswith("geosite:"):
+            rules.append(f"GEOSITE,{domain_rule.removeprefix('geosite:')}")
+        elif domain_rule.startswith("domain:"):
+            rules.append(f"DOMAIN-SUFFIX,{domain_rule.removeprefix('domain:')}")
+        else:
+            rules.append(f"DOMAIN-SUFFIX,{domain_rule}")
+    write_clash_rule_provider(rules, output)
+
+
 def build_index(manifests: list[dict], output: Path) -> None:
     sections = []
     for manifest in manifests:
@@ -290,6 +337,7 @@ def build_index(manifests: list[dict], output: Path) -> None:
 <ul>
 <li><a href="shadowrocket/{slug}.conf">Shadowrocket config / Shadowrocket 配置</a></li>
 <li><a href="v2rayn/{slug}.json">v2rayN rule set JSON / v2rayN 规则集 JSON</a></li>
+<li><a href="{slug}.yaml">Clash/Mihomo rule provider YAML / Clash/Mihomo 规则集 YAML</a></li>
 </ul>
 """
         )
@@ -322,6 +370,7 @@ def main() -> None:
         slug = manifest["slug"]
         build_shadowrocket(manifest, source, output / "shadowrocket" / f"{slug}.conf")
         build_v2rayn(manifest, output / "v2rayn" / f"{slug}.json")
+        build_clash(manifest, output / f"{slug}.yaml")
     build_index(manifests, output / "index.html")
 
 
