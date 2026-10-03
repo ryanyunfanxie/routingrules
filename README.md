@@ -16,11 +16,13 @@ Selective routing rules for Hong Kong and mainland China, with Shadowrocket, v2r
 ## URLs
 
 ```text
+hk:
 https://ryanyunfanxie.github.io/routingrules/shadowrocket/routingrules_hk.conf
 https://ryanyunfanxie.github.io/routingrules/v2rayn/routingrules_hk.json
+https://ryanyunfanxie.github.io/routingrules/routingrules_hk.yaml
+cn:
 https://ryanyunfanxie.github.io/routingrules/shadowrocket/routingrules_cn.conf
 https://ryanyunfanxie.github.io/routingrules/v2rayn/routingrules_cn.json
-https://ryanyunfanxie.github.io/routingrules/routingrules_hk.yaml
 https://ryanyunfanxie.github.io/routingrules/routingrules_cn.yaml
 ```
 

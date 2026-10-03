@@ -13,6 +13,9 @@
 <li><a href="v2rayn/routingrules_hk.json">v2rayN rule set JSON / v2rayN 规则集 JSON</a></li>
 <li><a href="routingrules_hk.yaml">Clash/Mihomo rule provider YAML / Clash/Mihomo 规则集 YAML</a></li>
 </ul>
+<p>Clash/Mihomo rule order / Clash/Mihomo 规则顺序</p>
+<pre><code>- RULE-SET,routingrules_hk,PROXY
+- MATCH,DIRECT</code></pre>
 <h2>routingrules_cn</h2>
 <p>v2rayN-style Whitelist routing: direct mainland China and private traffic, proxy everything else</p>
 <p>中国大陆域名和 IP 直连，其余流量代理</p>
@@ -21,5 +24,10 @@
 <li><a href="v2rayn/routingrules_cn.json">v2rayN rule set JSON / v2rayN 规则集 JSON</a></li>
 <li><a href="routingrules_cn.yaml">Clash/Mihomo rule provider YAML / Clash/Mihomo 规则集 YAML</a></li>
 </ul>
+<p>Clash/Mihomo rule order / Clash/Mihomo 规则顺序</p>
+<pre><code>- AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
+- GEOSITE,google,PROXY
+- RULE-SET,routingrules_cn,DIRECT
+- MATCH,PROXY</code></pre>
 
 </html>
