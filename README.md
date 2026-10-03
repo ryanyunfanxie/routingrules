@@ -8,10 +8,10 @@ Selective routing rules for Hong Kong and mainland China, with Shadowrocket, v2r
 
 - `shadowrocket/routingrules_hk.conf` — Hong Kong Shadowrocket config / 香港版 Shadowrocket 配置
 - `v2rayn/routingrules_hk.json` — Hong Kong v2rayN rules / 香港版 v2rayN 规则
+- `clash/mihomo/routingrules_hk.yaml` — Hong Kong Clash/Mihomo rule provider / 香港版 Clash/Mihomo 规则集
 - `shadowrocket/routingrules_cn.conf` — Mainland China Shadowrocket config / 大陆版 Shadowrocket 配置
 - `v2rayn/routingrules_cn.json` — Mainland China v2rayN rules / 大陆版 v2rayN 规则
-- `clash/routingrules_hk.yaml` — Hong Kong Clash/Mihomo rule provider / 香港版 Clash/Mihomo 规则集
-- `clash/routingrules_cn.yaml` — Mainland China Clash/Mihomo rule provider / 大陆版 Clash/Mihomo 规则集
+- `clash/mihomo/routingrules_cn.yaml` — Mainland China Clash/Mihomo rule provider / 大陆版 Clash/Mihomo 规则集
 
 ## URLs
 
@@ -19,11 +19,11 @@ Selective routing rules for Hong Kong and mainland China, with Shadowrocket, v2r
 hk:
 https://ryanyunfanxie.github.io/routingrules/shadowrocket/routingrules_hk.conf
 https://ryanyunfanxie.github.io/routingrules/v2rayn/routingrules_hk.json
-https://ryanyunfanxie.github.io/routingrules/clash/routingrules_hk.yaml
+https://ryanyunfanxie.github.io/routingrules/clash/mihomo/routingrules_hk.yaml
 cn:
 https://ryanyunfanxie.github.io/routingrules/shadowrocket/routingrules_cn.conf
 https://ryanyunfanxie.github.io/routingrules/v2rayn/routingrules_cn.json
-https://ryanyunfanxie.github.io/routingrules/clash/routingrules_cn.yaml
+https://ryanyunfanxie.github.io/routingrules/clash/mihomo/routingrules_cn.yaml
 ```
 
 Import `.conf` as a complete Shadowrocket configuration, `.json` as a v2rayN routing profile, or `.yaml` as a Clash/Mihomo `classical` rule provider.
