@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
-import html
 import json
 import re
 import shutil
@@ -19,10 +18,6 @@ MANIFESTS = (
 )
 DOMAIN_RE = re.compile(r"^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$")
 
-DESCRIPTION_ZH = {
-    "hk": "针对从香港出口不可用或受地区限制的服务进行选择性路由",
-    "cn": "中国大陆域名和 IP 直连，其余流量代理",
-}
 SHADOWROCKET_GEOSITE_DOMAINS = {
     "geosite:google": (
         "google.com",
@@ -322,39 +317,6 @@ def build_clash_mainland_whitelist(manifest: dict, output: Path) -> None:
     write_clash_rule_provider(rules, output)
 
 
-def build_index(manifests: list[dict], output: Path) -> None:
-    sections = []
-    for manifest in manifests:
-        region = manifest["region"]
-        slug = html.escape(manifest["slug"], quote=True)
-        description = manifest.get("description", "")
-        description_zh = DESCRIPTION_ZH.get(region, description)
-        section_heading = html.escape(manifest["name"])
-        sections.append(
-            f"""<h2>{section_heading}</h2>
-<p>{html.escape(description)}</p>
-<p>{html.escape(description_zh)}</p>
-<ul>
-<li><a href="shadowrocket/{slug}.conf">Shadowrocket config / Shadowrocket 配置</a></li>
-<li><a href="v2rayn/{slug}.json">v2rayN rule set JSON / v2rayN 规则集 JSON</a></li>
-<li><a href="{slug}.yaml">Clash/Mihomo rule provider YAML / Clash/Mihomo 规则集 YAML</a></li>
-</ul>
-"""
-        )
-    body = f"""<!doctype html>
-<html lang="en">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>routingrules</title>
-<style>body{{font:16px system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;line-height:1.5}}p{{margin:.7rem 0}}ul{{padding-left:1.5rem}}li{{margin:.35rem 0}}code{{background:#f1f3f5;padding:.15rem .3rem;border-radius:.25rem}}li div+div{{margin-top:.1rem;color:#333}}a{{margin-right:.6rem}}</style>
-<h1><a href="https://github.com/ryanyunfanxie/routingrules">routingrules</a></h1>
-{''.join(sections)}
-</html>
-"""
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(body, encoding="utf-8")
-
-
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, default=ROOT / "public")
@@ -371,7 +333,6 @@ def main() -> None:
         build_shadowrocket(manifest, source, output / "shadowrocket" / f"{slug}.conf")
         build_v2rayn(manifest, output / "v2rayn" / f"{slug}.json")
         build_clash(manifest, output / f"{slug}.yaml")
-    build_index(manifests, output / "index.html")
 
 
 if __name__ == "__main__":

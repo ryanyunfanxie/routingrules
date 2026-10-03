@@ -1,4 +1,4 @@
-# [routingrules](https://ryanyunfanxie.github.io/routingrules/)
+# [routingrules](https://github.com/ryanyunfanxie/routingrules)
 
 Selective routing rules for Hong Kong and mainland China, with Shadowrocket, v2rayN, and Clash/Mihomo outputs.
 
