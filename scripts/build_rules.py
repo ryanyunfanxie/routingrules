@@ -332,7 +332,7 @@ def main() -> None:
         slug = manifest["slug"]
         build_shadowrocket(manifest, source, output / "shadowrocket" / f"{slug}.conf")
         build_v2rayn(manifest, output / "v2rayn" / f"{slug}.json")
-        build_clash(manifest, output / f"{slug}.yaml")
+        build_clash(manifest, output / "clash" / f"{slug}.yaml")
 
 
 if __name__ == "__main__":
